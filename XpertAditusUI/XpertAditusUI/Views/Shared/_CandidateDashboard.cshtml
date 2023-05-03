@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using XpertAditusUI.Service;
+@inject UserProfileService _userProfileService
+@inject UserManager<IdentityUser> userManager
+@{
+    var userProfile = _userProfileService.GetUserProfile(this.User);
+}
+@*<ul>
+        <li>
+            <a class="nav-link text-dark" asp-area="" asp-controller="SelectCourse" asp-action="SelectCourse"><i class="icon-material-outline-question-answer"></i>Select Course</a>
+        </li>
+        <li><a href="dashboard-reviews.html"><i class="icon-material-outline-rate-review"></i> Job Dashboard </a></li>
+    </ul>*@
+@if (!_userProfileService.IsProfileComplete(userProfile.UserProfileId))
+{
+
+    <ul data-submenu-title="**Complete your profile first.**" style="color:red !important"></ul>
+    <ul data-submenu-title="Course">
+        <li onclick="CompleteProfile()">
+            <a class="nav-link text-dark" asp-area="" asp-controller="SelectCourse" asp-action="SelectCourse" style="pointer-events:none"><i class="icon-material-outline-question-answer"></i>Enrollment</a>
+        </li>
+        @*<li onclick="CompleteProfile()">
+                <a class="nav-link text-dark" href="/Mycourses/index" style="pointer-events:none"><i class="icon-material-outline-rate-review"></i> My Courses</a>
+            </li>*@
+        <li onclick="CompleteProfile()">
+            <a class="nav-link text-dark" asp-area="" asp-controller="DisclaimerAccepted" asp-action="DisclaimerAccepted" style="pointer-events:none"><i class="icon-material-outline-question-answer"></i>Test</a>
+        </li>
+        <li onclick="CompleteProfile()">
+            <a class="nav-link text-dark" href="/candidateresult/candidateresult" style="pointer-events:none"><i class="icon-material-outline-star-border"></i> Score & Certificaiton</a>
+        </li>
+        <li onclick="CompleteProfile()">
+            <a class="nav-link text-dark" asp-area="" asp-controller="EligibleCourses" asp-action="EligibleCourses" style="pointer-events:none"><i class="icon-material-outline-star-border"></i> Select Course</a>
+        </li>
+
+    </ul>
+}
+else
+{
+
+    @if (!_userProfileService.IsAdmissionDone(userProfile.UserProfileId))
+    {
+        <ul data-submenu-title="Course">
+            <li>
+                <a class="nav-link" asp-area="" asp-controller="SelectCourse" asp-action="SelectCourse"><i class="icon-material-outline-question-answer"></i>Enrollment</a>
+            </li>
+            @*<li><a href="/Mycourses/index"><i class="icon-material-outline-rate-review"></i> My Courses</a></li>*@
+            <li>
+                <a class="nav-link" asp-area="" asp-controller="DisclaimerAccepted" asp-action="DisclaimerAccepted"><i class="icon-material-outline-question-answer"></i>Test</a>
+            </li>
+            <li><a href="/candidateresult/candidateresult"><i class="icon-material-outline-star-border"></i> Score & Certificaiton</a></li>
+            <li><a class="nav-link" asp-area="" asp-controller="EligibleCourses" asp-action="EligibleCourses"><i class="icon-material-outline-star-border"></i> Select Course</a></li>
+            <li><a class="nav-link" asp-controller="Ppo" asp-action="Ppo"><i class="icon-material-outline-assignment"></i> PPO</a></li>
+        </ul>
+        <ul data-submenu-title="Interview">
+            <li>
+                <a class="nav-link" asp-area="" asp-controller="Interview" asp-action="Interview"><i class="icon-material-outline-question-answer"></i>Give Interview</a>
+            </li>
+            <li>
+                <a class="nav-link" asp-area="" asp-controller="Interview" asp-action="DeleteInterview"><i class="icon-material-outline-question-answer"></i>Update Interview</a>
+            </li>
+
+        </ul>
+
+    }
+    else
+    {
+        <ul data-submenu-title="Course">
+            @*<li><a class="nav-link" asp-controller="Ppo" asp-action="Ppo"><i class="icon-material-outline-assignment"></i> PPO</a></li>*@
+            <li>
+                <a class="nav-link text-dark" asp-area="" asp-controller="PADisclaimerAccepted" asp-action="PADisclaimer"><i class="icon-material-outline-question-answer"></i>MCQ Test </a>
+            </li>
+            <li>
+                <a class="nav-link text-dark" asp-area="" asp-controller="PACaseStudy" asp-action="PACaseStudy"><i class="icon-material-outline-question-answer"></i>Case Study</a>
+            </li>
+            <li>
+                <a class="nav-link text-dark" asp-area="" asp-controller="PAInterview" asp-action="PAInterview"><i class="icon-material-outline-question-answer"></i>Video Test</a>
+            </li>
+            <li>
+                <a class="nav-link" asp-controller="AdmissionInfoDashboard" asp-action="AdmissionInfoDashboard"><i class="icon-material-outline-dashboard"></i>AdmissionInfo Dashboard</a>
+            </li>
+        </ul>
+        <ul data-submenu-title="Job">
+            <li><a class="nav-link" asp-controller="JobDashBoard" asp-action="JobDashBoards"><i class="icon-material-outline-settings"></i>Job DashBoard</a></li>
+            <li><a class="nav-link" asp-controller="JobDashBoard" asp-action="AppliedJobList"><i class="icon-material-outline-settings"></i>Applied Job List</a></li>
+        </ul>
+    }
+
+}
+<ul data-submenu-title="Account">
+    <li><a href="/userprofile"><i class="icon-material-outline-settings"></i> Update User Profile</a></li>
+    <li><a href="/Identity/Account/Logout"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+</ul>

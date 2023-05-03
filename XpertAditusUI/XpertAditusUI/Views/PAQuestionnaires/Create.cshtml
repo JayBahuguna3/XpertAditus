@@ -1,0 +1,154 @@
+﻿@model XpertAditusUI.Models.Paquestionnaire
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h1>Create</h1>
+
+    <h4>Questionnaire</h4>
+    <hr />*@
+
+
+<h1>Create Questionnaire</h1>
+<hr />
+<form asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @* <div class="form-group">
+            <label asp-for="QuestionnaireType" class="control-label"></label>
+            <input asp-for="QuestionnaireType" class="form-control" />
+            <span asp-validation-for="QuestionnaireType" class="text-danger"></span>
+        </div>*@
+    <div class="form-group">
+        <label asp-for="QuestionnaireType" class="control-label"></label>
+        <select asp-for="QuestionnaireType" class="form-control">
+            <option value="">---- Select Questionnaire Type ----</option>
+            <option>Video</option>
+            <option>Audio</option>
+            <option>Text</option>
+            <option>File</option>
+        </select>
+        <span asp-validation-for="QuestionnaireType" class="text-danger"></span>
+    </div>
+    @* <div class="form-group" id="mySelect">
+            @Html.DropDownListFor(e => e.QuestionnaireType,
+                               new List<SelectListItem> {
+                        new SelectListItem{Text = "Text", Value = "Text"},
+                        new SelectListItem{Text = "File(msword,audio,video,doc,pdf,xlsx)", Value = "File"},
+                        new SelectListItem{Text = "Video", Value = "Video"},
+                        new SelectListItem{Text = "Audio", Value = "Audio"}
+                      }, "Select Question Type")
+
+            <span asp-validation-for="QuestionnaireType" class="text-danger"></span>
+        </div>*@
+
+
+
+    <div class="form-group" @* onkeyup="EnableDisable(this)"*@>
+        <label asp-for="QuestionText" class="control-label"></label>
+        <input asp-for="QuestionText" id="myText" class="form-control" />
+        <span asp-validation-for="QuestionText" class="text-danger"></span>
+    </div>
+
+    @* <div class="form-group">
+            <input type="file" name="file" id="file" value="Upload" asp-for="QuestionnaireType"  accept="msword,audio,video,doc,pdf/*" />
+        </div>*@
+    @*@Html.TextBox("lblSelectTypeid", "")*@
+
+    @* <div class="form-group">
+            <label asp-for="QuestionnarirePath" class="control-label"></label>
+            <input asp-for="QuestionnarirePath" class="form-control" />
+            <span asp-validation-for="QuestionnarirePath" class="text-danger"></span>
+        </div>*@
+    <div class="form-group">
+        <label asp-for=" Option1" class="control-label"></label>
+        <input asp-for=" Option1" class="form-control" />
+        <span asp-validation-for=" Option1" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for=" Option2" class="control-label"></label>
+        <input asp-for="Option2" class="form-control" />
+       <span asp-validation-for="Option2" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Option3" class="control-label"></label>
+        <input asp-for="Option3" class="form-control" />
+     @*   <span asp-validation-for="Option3" class="text-danger"></span>*@
+    </div>
+    <div class="form-group">
+        <label asp-for="Option4" class="control-label"></label>
+        <input asp-for="Option4" class="form-control" />
+    @*    <span asp-validation-for="Option4" class="text-danger"></span>*@
+    </div>
+    <div class="form-group">
+        <label asp-for="CorrectAnswer" class="control-label"></label>
+        @* <input asp-for="CorrectAnswer" class="form-control" />*@
+        <select asp-for="CorrectAnswer" class="form-control">
+            <option value="">---- Select Correct Option ----</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+        </select>
+        <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Course" class="control-label"></label>
+        <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId">
+            <option value="">---- Select Course ----</option>
+        </select>
+        <span asp-validation-for="CourseId" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="PatrainingContent" class="control-label"></label>
+        <select asp-for="PatrainingContentId" class="form-control" asp-items="ViewBag.TrainingContentId">
+            <option value="">---- Select Content name ----</option>
+        </select>
+        <span asp-validation-for="PatrainingContentId" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="IsActive" class="control-label"></label>
+        <br>
+        <input type="radio" asp-for="IsActive" value="True" />
+        <label for="true">True</label>
+        <input type="radio" asp-for="IsActive" value="False" />
+        <label for="false">False</label>
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+    <!--<div class="form-group">
+        <label asp-for="IsActive" class="control-label"></label>
+        <input asp-for="IsActive" class="form-control" />
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>-->
+    @*
+        <div class="form-group">
+            <label asp-for="ModifiedBy" class="control-label"></label>
+            <select asp-for="ModifiedBy" class="form-control" asp-items="ViewBag.ModifiedBy"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="ModifiedDate" class="control-label"></label>
+            <input asp-for="ModifiedDate" class="form-control" />
+            <span asp-validation-for="ModifiedDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedBy" class="control-label"></label>
+            <select asp-for="CreatedBy" class="form-control" asp-items="ViewBag.CreatedBy"></select>
+        </div>*@
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}}
+
+
+
+
+

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<XpertAditusUI.Models.CollegeStudentMapping>
+
+@{
+    ViewData["Title"] = "CollegeStudentsList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ 
+  }
+
+<h2>Applied Student List</h2>
+<br>
+<div  style="overflow-x:scroll;width:100%">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Registration No.</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>DOB</th>
+                <th>Email</th>
+                <th>Contact No.</th>
+                <th>Applied Course</th>
+                <th>Enrollment</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Appliedforspecificcollege)
+            {
+            <tr>
+
+                <td>@item.RegistrationNumber</td>
+                <td>@item.FirstName</td>
+                <td>@item.MiddleName</td>
+                <td>@item.LastName</td>
+                <td>@item.Dob.ToString("dd-MM-yyyy")</td>
+                <td>@item.Email</td>
+                <td>@item.MobileNumber</td>
+                <td>@item.CourseName</td>
+                <td>
+                    <a asp-action="AdmissionForm" asp-route-id="@item.UserProfileId">Enrollment</a>
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

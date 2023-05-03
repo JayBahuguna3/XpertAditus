@@ -1,0 +1,208 @@
+﻿@using XpertAditusUI.Models;
+@model CompanyProfile
+@{
+    ViewData["Title"] = "Profile Page";
+}
+
+
+<div class="row">
+    <form asp-controller="CompanyProfile" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="CompanyProfileId" />
+        <input type="hidden" asp-for="LoginId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <!-- Account Box -->
+        <div class="col-xl-12">
+            <div class="content with-padding padding-bottom-0">
+                <h4><b style="color:red;">Note : </b>Kindly Update All mandatory Fields in Each Section, Otherwise System will not behave properly.</h4>
+                <br>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="dashboard-box margin-top-0" style="background-color: #2fc3e926;">
+
+                <!-- Headline -->
+                <div class="headline">
+                    <h3><i class="icon-material-outline-account-circle"></i>Company Contact</h3>
+                </div>
+
+                <div class="content with-padding padding-bottom-0">
+                    <div class="row">
+                        <!-- Profile Photo and other -->
+                        <div class="col-auto">
+                            <div class="avatar-wrapper" data-tippy-placement="bottom" title="Attach College Logo">
+                                <img src="@Model.LogoPath" class="profile-pic" />
+                                <div class="upload-button"></div>
+                                <input class="file-upload" asp-for="Logo" accept="image/*" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <!-- First Name -->
+                                <div class="col-xl-6">
+                                    <div class="submit-field">
+                                        <h5>Company Name</h5>
+                                        <input class="with-border" asp-for="Name">
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!-- Middle Name -->
+                                <div class="col-xl-6">
+                                    <div class="submit-field">
+                                        <h5>Company Contact Number</h5>
+                                        <input class="with-border" asp-for="CompanyContact">
+                                        <span asp-validation-for="CompanyContact" class="text-danger"></span>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid phone no.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Last Name -->
+                                <div class="col-xl-6">
+                                    <div class="submit-field">
+                                        <h5>Company Email</h5>
+                                        <input class="with-border" asp-for="CompanyEmail">
+                                        <span asp-validation-for="CompanyEmail" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!-- Profile Type -->
+                                <div class="col-xl-6">
+                                    <div class="submit-field">
+                                        <h5>Company Website Link</h5>
+                                        <input class="with-border" asp-for="CompanyWebsiteLink">
+                                        <span asp-validation-for="CompanyWebsiteLink" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="headline">
+                    <h3><i class="icon-material-outline-add-location"></i>Company Address</h3>
+                </div>
+                <div class="content with-padding padding-bottom-0">
+
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Address</h5>
+                                <input class="with-border" asp-for="CompanyAddress">
+                                <span asp-validation-for="CompanyAddress" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Country</h5>
+                                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.Countries">
+                                    <option value=""> Select Country </option>
+                                </select>
+                                <span asp-validation-for="CountryId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>State</h5>
+                                <select asp-for="StateId" class="form-control" asp-items="ViewBag.States" onchange="getsDistricts()">
+                                    <option value=""> Select State </option>
+                                </select>
+                                <span asp-validation-for="StateId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>District</h5>
+                                <select asp-for="DistrictId" class="form-control" asp-items="ViewBag.Districts" onchange="getCities()">
+                                    <option value=""> Select District </option>
+                                </select>
+                                <span asp-validation-for="DistrictId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>City</h5>
+                                <select asp-for="CityId" class="form-control" asp-items="ViewBag.Cities">
+                                    <option value=""> Select City </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="headline">
+                    <h3><i class="icon-material-outline-announcement"></i>Company About</h3>
+                </div>
+                <div class="content with-padding padding-bottom-0">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>About</h5>
+                                <textarea class="with-border" asp-for="About"></textarea>
+                                <span asp-validation-for="About" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Review</h5>
+                                <textarea class="with-border" asp-for="Reviews"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Ratings</h5>
+                                <input class="with-border" asp-for="Ratings">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="headline">
+                    <h3><i class="icon-material-outline-attach-file"></i>College Attachment</h3>
+                </div>
+                <div class="content with-padding padding-bottom-0">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="attachments-container margin-top-0 margin-bottom-0">
+                                @if (Model.AttachementPath != null)
+                                {
+                                    <div class="attachment-box ripple-effect">
+                                        <span>Resume</span>
+                                        <a href=@Model.AttachementPath style="cursor:pointer;" download="">
+                                            <i class="icon-feather-download" style="color:blue;"> Attachment </i>
+                                        </a>
+                                        <a href="@Url.Action("DeleteAttachment","CollegeProfile")" class="remove-attachment" data-tippy-placement="top" title="Remove" style="text-align:center"></a>
+                                    </div>
+                                }
+                            </div>
+                            <div class="clearfix"></div>
+
+                            Upload Button
+                            <div class="uploadButton margin-top-0">
+                                <input class="uploadButton-input" asp-for="Attachment" accept="application/pdf" id="upload" />
+                                <label class="uploadButton-button ripple-effect" for="upload">Attachment</label>
+                                <span class="uploadButton-file-name">Maximum file size: 10 MB</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>*@
+
+
+
+                <div class="col-xl-12" style="text-align: right;">
+                    <button class="button ripple-effect big margin-top-30" type="submit">Save Changes</button>
+                </div>
+                <br />
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+    <script src="~/js/CollegeProfile/CollegeProfile.js?v=19072021"></script>
+}
+

@@ -1,0 +1,46 @@
+﻿@model List<PavideoQuestionResult>
+@{
+    ViewData["Title"] = "Video Evaluation";
+}
+<h1>Video Evaluation</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Video
+            </th>
+            <th>
+                Score
+            </th>
+            <th>
+                Feedback
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>
+                    <video width="320" height="240" controls>
+                        <source src="/@m.VideoAbsolutePath" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </td>
+                <td>
+                    <input  id="@m.VideoQuestionResultId.ToString()_Score" type="text" value="@m.Score" />
+                </td>
+                <td>
+                    <input id="@m.VideoQuestionResultId.ToString()_Feedback" type="text" value="@m.Feedback" />
+                </td>
+                <td><button class="btn btn-primary" onclick="SaveCaseStudyEvaluation()" id="@m.VideoQuestionResultId">Save</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script type="text/javascript" src="/js/Evaluation/VideoTest.js"></script>

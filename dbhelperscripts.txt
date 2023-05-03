@@ -1,0 +1,9 @@
+
+  select * from AspNetUsers
+  inner join UserProfile
+  on LoginId = id
+  inner join UserCourses
+  on UserProfile.UserProfileId = UserCourses.UserProfileID
+  inner join CandidateResult
+  on CandidateResult.UserCoursesID = UserCourses.UserCoursesID
+  where CandidateResult.CandidateResultId = '08c16f78-dd0e-44ce-bb53-f380f1e54b32'

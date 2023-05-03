@@ -1,0 +1,43 @@
+﻿@model List<PatestCaseAttachments>
+@{
+    ViewData["Title"] = "TestCaseAttachment";
+}
+<h1>TestCaseAttachment</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Attachment
+            </th>
+            <th>
+                Score
+            </th>
+            <th>
+                Feedback
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>
+                    <a href="/@m.AttachmentPath">@m.AttachmentPath</a>
+                </td>
+                <td>
+                    <input id="@m.TestCaseAttachmentId.ToString()_Score" type="text" value="@m.Score" />
+                </td>
+                <td>
+                    <input id="@m.TestCaseAttachmentId.ToString()_Feedback" type="text" value="@m.Feedback" />
+                </td>
+                <td><button class="btn btn-primary" onclick="SaveCaseStudyEvaluation()" id="@m.TestCaseAttachmentId">Save</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script type="text/javascript" src="/js/Evaluation/CaseStudy.js"></script>

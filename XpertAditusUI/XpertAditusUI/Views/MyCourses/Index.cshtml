@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MyCourseModel>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        @if (item.Course != null)
+        {
+            <div class="container">
+                <div class="tasks-list-container compact-list margin-top-35">
+                    <a href="/CandidateTrainingContent/CandidateTrainingContent/@item.Course.CourseId" class="task-listing">
+                        <div class="task-listing-details">
+                            <div class="task-listing-description">
+                                <h3 class="task-listing-title">
+                                    @item.Course.Name
+                                </h3>
+                                <p class="task-listing-text">
+                                    @item.Course.Description
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="task-listing-bid">
+                            <div class="task-listing-bid-inner">
+                                @if (item.IsTrainingComplete == true)
+                                {
+                                    <span class="button button-sliding-icon ripple-effect">View Training<i class="icon-material-outline-arrow-right-alt"></i></span>
+                                }
+                                else
+                                {
+                                    <span class="button button-sliding-icon ripple-effect">Start Training<i class="icon-material-outline-arrow-right-alt"></i></span>
+                                }
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    }
+}
+else
+{
+
+    <div class="hi">
+
+        @*<h3 style="text-align:center; background-color:powderblue; -webkit-text-stroke-width: thin;">
+                No Active Course,
+                Please go to course section and select course.
+            </h3>*@
+        <div>
+            <img src="/images/Nocoursess.jpeg" width="100%">
+
+        </div>
+    </div>
+}

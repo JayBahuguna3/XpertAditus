@@ -1,0 +1,81 @@
+﻿@model IEnumerable<XpertAditusUI.Models.Admission>
+
+<p>
+    Case Study Evaluation
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                FirstName
+            </th>
+            <th>
+                MiddleName
+            </th>
+            <th>
+                LastName
+            </th>
+            <th>
+                Course Name
+            </th>
+            <th>
+                Test Course Name
+            </th>
+            <th>
+                Month
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Score
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.PATestCompletedStudentList)
+        {
+        <tr>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.MiddleName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.CourseName
+            </td>
+            <td>
+                @item.TestCourseName
+            </td>
+            <td>
+                @item.Month
+            </td>
+            <td>
+                @item.Year
+            </td>
+            <td>
+                @item.Status
+            </td>
+
+            <td>
+                @item.Score
+            </td>
+
+            <td>
+                <a asp-action="TestCaseAttachment" asp-route-id="@item.PACandidateResultId">TestCaseAttachment</a>
+                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using XpertAditusUI.Service
+
+@inject SignInManager<IdentityUser> SignInManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (this.User.IsInRole("Candidate"))
+    {
+        <!-- Dashboard Headline -->
+        <div class="dashboard-headline">
+            @if (ViewData["UserName"] != null)
+            {
+                <h3>Hello, @ViewData["UserName"].ToString()</h3>
+            }
+            <span>We are glad to see you again!</span>
+
+        </div>
+
+        <!-- Fun Facts Container -->
+        <div class="fun-facts-container">
+            <div class="fun-fact" data-fun-fact-color="#36bd78">
+                <div class="fun-fact-text">
+                    <h2>Admission Information</h2><br>
+                    <label><b>College Name : </b>@ViewData["CollegeName"].ToString()</label>
+                    <label><b>Course : </b>@ViewData["CourseName"].ToString()</label>
+                    <label><b>Fee : </b>@ViewData["Fee"].ToString()</label>
+                    <label><b>Email Id : </b>@ViewData["ColgEmail"].ToString()</label>
+                </div>
+                <div class="fun-fact-icon"><i class="icon-line-awesome-institution"></i></div>
+            </div>
+        </div>
+       
+    }
+    @*else
+    {
+       
+    }*@
+}
+else
+{
+
+    <h1> Please login!</h1>
+
+}

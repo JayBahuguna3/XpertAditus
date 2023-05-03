@@ -1,0 +1,177 @@
+﻿@model XpertAditusUI.DTO.PaymentDTO
+
+@{
+    /**/
+
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<style>
+    .card-title {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .checkbox.pull-right {
+        margin: 0;
+    }
+
+    .pl-ziro {
+        padding-left: 0px;
+    }
+
+
+    /*credt card*/
+    .card .card-title {
+        display: inline;
+        font-weight: bold;
+        margin: 9px 0px 0px 17px;
+        font-size: 17px;
+    }
+
+    .card .form-control.error {
+        border-color: red;
+        outline: 0;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+    }
+
+    .card label.error {
+        font-weight: bold;
+        color: red;
+        padding: 2px 8px;
+        margin-top: 2px;
+    }
+
+    .card .payment-errors {
+        font-weight: bold;
+        color: red;
+        padding: 2px 8px;
+        margin-top: 2px;
+    }
+
+    .card label {
+        display: block;
+    }
+    /* The old "center div vertically" hack */
+    .card .display-table {
+        display: table;
+        background-color: lightgray;
+    }
+
+    .card.display-tr {
+        display: table-row;
+    }
+
+    .credit-card-box .display-td {
+        display: table-cell;
+        vertical-align: middle;
+        width: 50%;
+    }
+    /* Just looks nicer */
+    .card .card-heading img {
+        min-width: 180px;
+    }
+</style>
+
+<input type="hidden" id="candi_name" />
+<input type="hidden" id="candi_mobileno" />
+<input type="hidden" id="candi_id" />
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var model = @Html.Raw(Json.Serialize(Model));
+
+    function andThenThis() {
+        debugger;
+        var ammt = $("#txtAm").val();
+        var calAmmt = ammt * 100;
+        var options = {
+        "key": model.key, // Enter the Key ID generated from the Dashboard
+        "amount": calAmmt, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise or INR 500.
+        "currency": model.currency,
+        "name": model.name,
+        "description": model.description,
+        "image": model.image,
+        //"order_id": "order_9A33XWu170gUtm",//This is a sample Order ID. Create an Order using Orders API. (https://razorpay.com/docs/payment-gateway/orders/integration/#step-1-create-an-order). Refer the Checkout form table given below
+        "handler": function (response) {
+            $("#tbl_msg").fadeIn();
+            var url = '../Payment/PyUpdt';
+            $.get(url, $.param({
+                pid: response.razorpay_payment_id,
+                cid: model.candidateId, cuname: model.prefill_name,
+                am: $("#txtAm").val(), unm: model.userName,
+                email: model.prefill_email,
+                mobileNo: model.prefill_contact
+            }), function (data) {
+
+                if (data[0] == "success") {
+                    location.href = '@Url.Action("Thanks", "Thanks")?cid=' + model.candidateId
+                        + '&unm=' + model.userName + '&pid=' + response.razorpay_payment_id;
+                }
+            });
+        },
+        "prefill": {
+            "name": model.prefill_name,
+            "email": model.prefill_email,
+            "contact": model.prefill_contact
+        },
+        "notes": {
+            "address": model.notes_add
+        },
+        "theme": {
+            "color": model.theme_color
+        }
+    };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+    function doThis(callback) {
+        var url = '../Payment/Payment';
+        $.get(url, $.param({
+            amnt: $("#txtAm").val()
+        }), function (data) { });
+        callback()
+    }
+
+</script>
+<div class="col-lg-9 column">
+    <div class="padding-left">
+        <div class="manage-jobs-sec">
+            <h3>Fee and Registration Amount Section</h3>
+            <div class="card" style="padding: 19px;border:none;">
+                <div class="card-body">
+                    @*<h5 style="color: #ea2606;">You Are not able to see your Result till the payment process is not Completed. Pay 200Rs Fees</h5>*@
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span>Pay Amount : </span>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" id="txtAm" min="0">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="pf-title"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" id="btnpay" class="button" style="background-color: #5b35a5;color:white;" onclick="doThis(andThenThis);">Pay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<center>
+    <div id="tbl_msg" style="text-align:center; vertical-align:middle; font-family: Arial;font-size: 10pt; position:fixed;
+background: rgb(153,210,228); opacity:0.6; background: linear-gradient(135deg, rgb(153,210,228) 0%,rgb(255,212,218) 100%); 
+width: 100%;height: 100%; top:0; bottom:0; left:0; right:0; display:none; z-index: 9999; font-size:larger" >
+        Wait..Payment is under process...
+    </div>
+ 
+</center>

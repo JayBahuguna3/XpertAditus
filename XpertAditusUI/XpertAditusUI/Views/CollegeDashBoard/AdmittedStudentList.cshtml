@@ -1,0 +1,140 @@
+﻿@model IEnumerable<XpertAditusUI.Models.Admission>
+
+<h2>Admitted Student List</h2>
+<br>
+<div style="overflow-x:scroll;width:100%">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MiddleName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MobileNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmailAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FeeAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FeeMode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReceiptNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PaidDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PaidBankName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PaidBankIfsccode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdatedDate)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Course)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.CreatedByNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UpdatedByNavigation)
+                    </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserProfile.Email)
+                </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FeeAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FeeMode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceiptNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidBankName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidBankIfsccode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedDate)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.Name)
+                </td>
+                @*<td>
+                @Html.DisplayFor(modelItem => item.CreatedByNavigation.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedByNavigation.Id)
+            </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserProfile.Email)
+        </td>*@
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                    
+                    <a asp-action="AdmittedStudentDetail" asp-route-id="@item.Id" >Details</a> 
+                    @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

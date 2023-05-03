@@ -1,0 +1,113 @@
+﻿@model XpertAditusUI.Models.Questionnaire
+
+@{
+    ViewData["Title"] = "Interview";
+}
+@if (ViewBag.ActiveUserCourse != null)
+{
+    @if (ViewBag.IsInterviewAvailables == false)
+    {
+        <h1>No Interview Questions For this Course</h1>
+    }
+    else if (ViewBag.IsInterviewAvailable == false)
+    {
+        <h1>All Interview Question are Completed</h1>
+    }
+    else
+    {
+        <h3 class="page-title">Total Interviews Attempted : <b>@Model.AttemptedQuestion / @Model.TotalQuestion</b></h3>
+        @if (Model.QuestionnaireType == "Video")
+        {
+            <div class="tasks-list-container margin-top-35">
+                <div href="#" class="task-listing">
+                    <div class="task-listing-details">
+                        <div class="task-listing-description">
+                            <h3 class="task-listing-title" style="background-color: #f2f2f2">@Model.QuestionText</h3>
+                            <label typeof="hidden" id="candidate_questionId">@Model.QuestionnaireId</label>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <video id="gum" playsinline autoplay muted style="width: 250px;"></video>
+                                </div>
+                                <div class="col-sm-4">
+                                    <video id="recorded" playsinline loop style="width: 250px;"></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="task-listing-bid">
+                        <div class="task-listing-bid-inner">
+                            <button id="start" class="btn btn-primary">Start camera</button>
+                            <br />
+                            <br />
+                            <button id="record" disabled class="btn btn-primary">Record</button>
+                            <br />
+                            <br />
+                            <button id="play" disabled class="btn btn-primary">Play</button>
+                            <br />
+                            <br />
+                            <button id="download" disabled class="btn btn-primary">Upload Video</button>
+                            <br />
+                            <br />
+                            <div>
+                                <p>
+                                    Echo cancellation: <input type="checkbox" id="echoCancellation" />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.QuestionnaireType == "Audio")
+        {
+            <div class="tasks-list-container margin-top-35">
+                <div href="#" class="task-listing">
+                    <div class="task-listing-details">
+                        <div class="task-listing-description">
+                            <h3 class="task-listing-title" style="background-color: #f2f2f2">@Model.QuestionText</h3>
+                            <label typeof="hidden" id="candidate_questionId">@Model.QuestionnaireId</label>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <audio controls></audio>
+                                    <!--'controls' use for add
+                                        play, pause, and volume-->
+                                </div>
+                                <div class="col-sm-4">
+                                    <!--for play the audio-->
+                                    <audio id="adioPlay" controls></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="task-listing-bid">
+                        <div class="task-listing-bid-inner">
+                            <button id="btnStart" class="btn btn-primary">Start Recording</button>
+                            <br />
+                            <br />
+                            <button id="btnStop" class="btn btn-primary">Stop Recording</button>
+                            <br />
+                            <br />
+                            <button id="upload" disabled class="btn btn-primary">Upload Audio</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    @section Scripts {
+        <script src="~/js/InterviewVeddioRecord/AudioAssessment.js"></script>
+        <script>
+            document.getElementById('candidate_questionId').style.display = "none";
+        </script>
+        }
+    }
+else
+{
+    <div>
+        <img src="/images/ImageGiveInterView1.jpeg" width="100%" />
+    </div>
+}

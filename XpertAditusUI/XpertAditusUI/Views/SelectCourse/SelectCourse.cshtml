@@ -1,0 +1,73 @@
+﻿@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@model XpertAditusUI.Models.Course
+@{
+    ViewData["Title"] = "Course";
+    var cou = ViewBag.Courses;
+
+}
+
+    @*<form method="post" asp-controller="SelectCourse" asp-action="SelectCourse" style="width:105%">*@
+    @*<div class="container">
+        <div>
+            <h4 style="color: red">Note : Please Update your profile Before Selecting Course.  @Html.ActionLink("Update User Profile", "Profile", "UserProfile")</h4>
+        </div>*@
+    @*<hr />
+        <div class="notify-box margin-top-15">
+            <div class="row">
+                <div class="col-md-4">
+                    <select id="ddlCourse" name="Name" asp-for="Name" asp-items="@(new SelectList(ViewBag.Courses,"Name","Name"))" class="form-control">
+                        <option value="0">Please select Course</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <button class="btn btn-primary" type="submit">Find More About The Course</button>
+                </div>
+            </div>
+        </div>*@
+    @foreach (var item in cou)
+    { 
+<div class="container">
+    <input type="hidden" id="course_id" value="@item.CourseId" />
+    <input type="hidden" id="course_fee" value="@item.Fee" />
+    <div class="tasks-list-container compact-list margin-top-80">
+        <a href="#" class="task-listing">
+            <div class="task-listing-details">
+                <div class="task-listing-description">
+                    <h1 class="task-listing-title" style="color:navy;font:oblique">
+                        @item.Name
+                    </h1>
+                    <p class="task-listing-text">
+                        Description: @item.Description
+                    </p>
+                    <h3 class="task-listing-title">
+                        About The Enrolment: After enrollment you will be able to take test, select course and can apply for colleges.
+                    </h3>
+                    <h3 style="color:navy;font:oblique">
+                        Enrollment Fee: @item.Fee
+                    </h3>
+                </div>
+            </div>
+
+            <div class="task-listing-bid">
+                <div class="task-listing-bid-inner">
+                    @*<div class="task-offers">
+                            <strong>@item.Fee</strong>
+                        </div>*@
+                    <img src="/images/enrolledimage.jpg" alt="Avatar" />
+                    <span onclick="StartPaymentProcess()" class="button button-sliding-icon ripple-effect">Enrollment <i class="icon-material-outline-arrow-right-alt"></i></span>
+                </div>
+            </div>
+
+        </a>
+    </div>
+    </div>
+
+    }
+
+
+    @*</form>*@
+
+    @section Scripts {
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script src="~/js/Payment/Payment.js?v=22062021"></script>
+    }

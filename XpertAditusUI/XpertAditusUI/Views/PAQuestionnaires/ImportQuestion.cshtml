@@ -1,0 +1,96 @@
+﻿@{ 
+    ViewData["Title"] = "Import Question";
+
+}
+
+
+
+
+<div class="dashboard-headline">
+    <h3>Import Question</h3>
+    <hr />
+
+    <li style="color:red">QuestionnaireType</li>
+    <li style="color:red">QuestionText</li>
+    <li style="color:red">Option1</li>
+    <li style="color:red">Option2</li>
+    <li style="color:red">Option3</li>
+    <li style="color:red">Option4</li>
+    <li style="color:red">CorrectAnswer</li>
+    <li style="color:red">IsActive</li>
+    <li style="color:red">CourseId</li>
+    <li style="color:red">TrainingContentId</li>
+    <h4 style="color:red">Get CourseId and TraningContentId Information from Export File </h4>
+    <br />
+    <form method="post" enctype="multipart/form-data">
+       
+        <br>
+        <div class="row">
+
+            <div class="col-md-3">
+                  <input type="file" name="files" id="fUpload" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <a type="button" id="btnUpload" asp-action="Index" class="btn btn-success"><i class="fa fa-upload"></i>Upload</a>
+                <a type="button" asp-action="ExportCourseContent" class="btn btn-success"><i class="fa fa-download"></i>Export File</a>
+            </div>
+        </div>
+        <br />
+    </form>
+
+    <div>
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    </div>
+</div>
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnUpload').on('click', function () {
+            var fileExtension = ['xls', 'xlsx'];
+            var filename = $('#fUpload').val();
+            if (filename.length == 0) {
+                alert("Please select a file.");
+                return false;
+            }
+            else {
+                var extension = filename.replace(/^.*\./, '');
+                if ($.inArray(extension, fileExtension) == -1) {
+                    alert("Please select only excel files.");
+                    return false;
+                }
+            }
+            var fdata = new FormData();
+            var fileUpload = $("#fUpload").get(0);
+            var files = fileUpload.files;
+            fdata.append(files[0].name, files[0]);
+            $.ajax({
+                type: "POST",
+                url: '/Questionnaires/Import',
+                headers: {
+                    RequestVerificationToken:
+                        $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                data: fdata,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.length == 0)
+                        alert('Some error occured while uploading');
+                    else {
+                        $('#dvData').html(response);
+                    }
+                },
+                error: function (e) {
+                    $('#dvData').html(e.responseText);
+                }
+            });
+            alert(' Import Successfully');
+        })
+    });
+  
+</script>

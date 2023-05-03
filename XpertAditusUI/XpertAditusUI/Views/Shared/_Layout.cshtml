@@ -1,0 +1,166 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using XpertAditusUI.Controllers
+@using System.Reflection;
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @RenderSection("Head", required: false)
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AIMS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/colors/blue.css">
+</head>
+<body class="gray">
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Dashboard Container -->
+        <div class="dashboard-container">
+
+            <!-- Header Container
+            ================================================== -->
+            <partial name="_Header" />
+
+            <div class="clearfix"></div>
+            <!-- Header Container / End -->
+            <!-- Dashboard Sidebar
+            ================================================== -->
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="dashboard-sidebar">
+                    <div class="dashboard-sidebar-inner" data-simplebar>
+                        <div class="dashboard-nav-container">
+
+                            <!-- Responsive Navigation Trigger -->
+                            <a href="#" class="dashboard-responsive-nav-trigger">
+                                <span class="hamburger hamburger--collapse">
+                                    <span class="hamburger-box">
+                                        <span class="hamburger-inner"></span>
+                                    </span>
+                                </span>
+                                <span class="trigger-title">Dashboard Navigation</span>
+                            </a>
+
+                            <!-- Navigation -->
+                            <div class="dashboard-nav">
+                                <div class="dashboard-nav-inner">
+                                    @if (this.User.IsInRole("Admin"))
+                                    {
+                                        <partial name="_AdminDasboard" />
+                                    }
+                                    else if (this.User.IsInRole("College"))
+                                    {
+                                        <partial name="_CollegeDasboard" />
+                                    }
+                                    else if (this.User.IsInRole("Company"))
+                                    {
+                                        <partial name="_CompanyDasboard" />
+                                    }
+                                    else if (this.User.IsInRole("Employee"))
+                                    {
+                                        <partial name="_EmployeeDasboard" />
+                                    }
+                                    else
+                                    {
+                                        <partial name="_CandidateDashboard" />
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- Dashboard Content ================================================== -->
+            <!-- Dashboard Content
+            ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner" style="margin-right: 18px;">
+                    @RenderBody()
+                    <div class="dashboard-footer-spacer"></div>
+                    <!-- Footer -->
+                    @*<div class="dashboard-footer-spacer"></div>*@
+                    <div class="small-footer margin-top-15">
+                        <div class="small-footer-copyrights">
+                            &copy; 2021 -  <strong>AIMS</strong>. All Rights Reserved. V @typeof(DisclaimerAcceptedController).Assembly.GetName().Version
+                        </div>
+                        <ul class="footer-social-links">
+                            <li>
+                                <a href="#" title="Facebook" data-tippy-placement="top">
+                                    <i class="icon-brand-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="Twitter" data-tippy-placement="top">
+                                    <i class="icon-brand-twitter"></i>
+                                </a>
+                            </li>
+                            @*<li>
+                                <a href="#" title="Google Plus" data-tippy-placement="top">
+                                    <i class="icon-brand-google-plus-g"></i>
+                                </a>
+                            </li>*@
+                            <li>
+                                <a href="#" title="LinkedIn" data-tippy-placement="top">
+                                    <i class="icon-brand-linkedin-in"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Dashboard Content / End -->
+
+
+        </div>
+        <!-- Dashboard Container / End -->
+    </div>
+    <!-- Wrapper / End -->
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Scripts
+    ================================================== -->
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/jquery-migrate-3.3.2.min.js"></script>
+    <script src="~/js/mmenu.min.js"></script>
+    <script src="~/js/tippy.all.min.js"></script>
+    <script src="~/js/simplebar.min.js"></script>
+    <script src="~/js/bootstrap-slider.min.js"></script>
+    <script src="~/js/bootstrap-select.min.js"></script>
+    <script src="~/js/snackbar.js"></script>
+    <script src="~/js/clipboard.min.js"></script>
+    <script src="~/js/counterup.min.js"></script>
+    <script src="~/js/magnific-popup.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/custom.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+    <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
+    <script>
+        // Snackbar for user status switcher
+        $('#snackbar-user-status label').click(function () {
+            Snackbar.show({
+                text: 'Your status has been changed!',
+                pos: 'bottom-center',
+                showAction: false,
+                actionText: "Dismiss",
+                duration: 3000,
+                textColor: '#fff',
+                backgroundColor: '#383838'
+            });
+        });
+    </script>
+
+</body>
+</html>

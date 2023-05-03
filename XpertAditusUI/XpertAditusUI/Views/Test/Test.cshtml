@@ -1,0 +1,89 @@
+﻿@using XpertAditusUI.Models;
+@model Questionnaire
+@{
+    
+    var info = ViewBag.TranningInfo;
+    ViewData["Title"] = "Test Page";
+    bool saveValue = true;
+}
+
+<style>
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+</style>
+
+<div class="col-xl-12">
+    <div class="dashboard-box margin-top-0">
+        <div class="row">
+            <h3 style=" padding-left: 30px; padding-top: 30px;">Test</h3>
+            <div class="col-md-10 col-lg-10 col-xl-10" style="text-align:center">
+                <div>Time Remaining -: <span id="hrsRemining"></span> : <span id="minRemining"></span> : <span id="secRemining"></span></div>
+            </div>
+            <div class="col-md-12" style="padding-top:15px;text-align:center">
+                <div id="divTabs" class="tab">
+                    @if (ViewBag.TranningInfo != null)
+                    {
+                        @foreach (var item in ViewBag.TranningInfo)
+                        {
+                            if (saveValue)
+                            {
+                                <input id="txtDefaultTrainingContentId" type="hidden" value="@item.TrainingContentId" />
+                                saveValue = false;
+                            }
+                            @if (ViewBag.TestType.ToString() == "Multiple")
+                            {
+                                <button id="btnTrainingContentName_@item.TrainingContentId" class="tablinks" onclick="displayDiv('@item.TrainingContentId')"> @item.Name </button>
+                            }
+                        }
+                    }
+                </div>
+                <div id="divQuestionnaire" class="padding-top-10">
+                </div>
+                <br />
+                <div id="divQuestions" style="padding-top:20px; padding-left:35px;">
+                </div>
+                <div style="padding-top:65px; padding-bottom:20px;">
+                    <button class="btn btn-outline-primary" id="btnPrevious" onclick="prevQuestion()">Prev Question</button>
+                    @*<button class="btn btn-outline-primary" onclick="Submit()">Submit</button>*@
+                    <button class="btn btn-outline-primary" id="btnNext" onclick="nextQuestion()">Next Question</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" style="padding-top:15px;text-align:right">
+        <button class="btn btn-success" style="font-weight: bolder;" onclick="Submit()">Finish Test<i class="icon-material-outline-arrow-forward" style="margin-left: 12px; font-size: 17px; align-self: center;"></i></button>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        window.CourseId = '@ViewBag.Course.CourseId.ToString()';
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Questionnaire.js?v=18082021"></script>
+}

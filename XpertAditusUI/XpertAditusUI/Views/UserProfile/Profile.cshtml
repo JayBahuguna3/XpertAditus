@@ -1,0 +1,799 @@
+﻿@using XpertAditusUI.Models;
+@model UserProfile
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Profile Page";
+}
+
+<style>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- Row -->
+<div class="row">
+    <form asp-controller="UserProfile" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="UserProfileId" />
+        <input type="hidden" asp-for="LoginId" />
+        <input type="hidden" asp-for="UserProfileType" />
+
+
+        <!-- Account Box -->
+        <div class="col-xl-12">
+            <div class="content with-padding padding-bottom-0">
+                <h4><b style="color:red;">Note : </b>Kindly Update All mandatory Fields in Each Section, Otherwise System will not behave properly.</h4>
+                <br>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="dashboard-box margin-top-0" style="background-color: #2fc3e926;">
+
+                <!-- Headline -->
+                <div class="headline">
+                    <h3><i class="icon-material-outline-account-circle"></i> My Account</h3>
+                </div>
+
+                <div class="content with-padding padding-bottom-0">
+
+                    <div class="row">
+                        <!-- Profile Photo and other -->
+                        <div class="col-auto">
+                            <div class="avatar-wrapper" data-tippy-placement="bottom" title="Change Avatar">
+
+                                <img src="@Model.PhotoPath" class="profile-pic" />
+                                <div class="upload-button"></div>
+                                <input class="file-upload" asp-for="Photo" accept="image/*" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="col">
+                            <div class="row">
+                                <!-- First Name -->
+                                <div class="col-xl-6">
+                                    <div class="submit-field">
+                                        <h5>First Name</h5>
+                                        <input class="with-border" asp-for="FirstName" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)">
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!-- Middle Name -->
+                                <div class="col-xl-6">
+                                    <div class="submit-field">
+                                        <h5>Middle Name</h5>
+                                        <input class="with-border" asp-for="MiddleName" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)">
+                                         <span asp-validation-for="MiddleName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!-- Last Name -->
+                                <div class="col-xl-6">
+                                    <div class="submit-field">
+                                        <h5>Last Name</h5>
+                                        <input class="with-border" asp-for="LastName" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)">
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!-- Profile Type -->
+                                <div class="col-xl-6">
+                                    <div class="submit-field">
+                                        <h5>User Profile Type</h5>
+                                        <div class="account-type">
+                                            <div>
+                                                <input type="radio" name="account-type-radio" id="freelancer-radio" class="account-type-radio" checked />
+                                                <label for="freelancer-radio" class="ripple-effect-dark">
+                                                    <i class="icon-material-outline-account-circle"></i>
+                                                    @Model.UserProfileType
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                @*<div class="align-self-center mx-auto">
+                                        <button class="button ripple-effect medium" type="submit">Save Changes</button>
+                                    </div>*@
+
+                                @*<div class="col-xl-6">
+                                        <div class="submit-field">
+                                            <h5>Email</h5>
+                                            <input class="with-border" asp-for="Email">
+                                        </div>
+                                    </div>*@
+                                @*   <button class="button ripple-effect medium" type="submit">Save Changes</button>*@
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="headline">
+                    <h3><i class="icon-material-outline-face"></i> My Profile</h3>
+                </div>
+                <div class="content with-padding padding-bottom-0">
+
+                    <div class="row">
+                        <!-- DOB -->
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Birthdate</h5>
+                                <input type="date" class="with-border" asp-for="Dob" id="dob" max="9999-12-31">
+                             
+                            </div>
+                        </div>
+                        <!-- FB Link -->
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Facebook Link</h5>
+                                <input class="with-border" asp-for="FacebookLink">
+                            </div>
+                        </div>
+                        <!-- Twitter Link -->
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Twitter Link</h5>
+                                <input class="with-border" asp-for="TwitterLink">
+                            </div>
+                        </div>
+                        <!-- LinkedIn Link -->
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Linkedin Link</h5>
+                                <input class="with-border" asp-for="LinkedinLink">
+                            </div>
+                        </div>
+                        <!-- Mobile Number -->
+
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Mobile Number</h5>
+                                <input readonly class="with-border" asp-for="MobileNumber">
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Email</h5>
+                                <input readonly class="with-border" asp-for="Email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="headline">
+                    <h3><i class="icon-material-outline-attach-file"></i> Attachments</h3>
+                </div>
+                <div class="content with-padding padding-bottom-0">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="attachments-container margin-top-0 margin-bottom-0">
+                                @if (Model.ResumePath != null)
+                                {
+                                    <div class="attachment-box ripple-effect">
+                                        <span>Resume</span>
+                                        <a href=@Model.ResumePath style="cursor:pointer;" download="">
+                                            <i class="icon-feather-download" style="color:blue;"> Resume </i>
+                                        </a>
+                                        <a href="@Url.Action("DeleteResume","UserProfile")" class="remove-attachment" data-tippy-placement="top" title="Remove" style="text-align:center"></a>
+                                    </div>
+                                }
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <!-- Upload Button -->
+                            <div class="uploadButton margin-top-0">
+                                <input class="uploadButton-input" asp-for="ResumeFile" accept=".pdf, .doc, .docx" id="upload" />
+                                <label class="uploadButton-button ripple-effect" for="upload">Upload Resume Files</label>
+                                <span class="uploadButton-file-name">Maximum file size: 10 MB<br>
+                                Resume should be upload in pdf or doc formate.</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12" style="text-align: right;">
+                    <button class="button ripple-effect big margin-top-30" type="submit" onclick="dobcheck()">Save Changes</button>
+                </div>
+                <br />
+            </div>
+        </div>
+
+        <!-- Profile Box -->
+        <!--<div class="col-xl-12">
+            <div class="dashboard-box" style="background-color: #d0d6dc;">-->
+        <!-- Headline -->
+        <!--<div class="headline">
+            <h3><i class="icon-material-outline-face"></i> My Profile</h3>
+        </div>
+
+        <div class="content with-padding padding-bottom-0">
+
+            <div class="row">-->
+        <!-- DOB -->
+        <!--<div class="col-xl-6">
+            <div class="submit-field">
+                <h5>Birthdate</h5>
+                <input type="date" class="with-border" asp-for="Dob">
+            </div>
+        </div>-->
+        <!-- FB Link -->
+        <!--<div class="col-xl-6">
+            <div class="submit-field">
+                <h5>Facebook Link</h5>
+                <input class="with-border" asp-for="FacebookLink">
+            </div>
+        </div>-->
+        <!-- Twitter Link -->
+        <!--<div class="col-xl-6">
+            <div class="submit-field">
+                <h5>Twitter Link</h5>
+                <input class="with-border" asp-for="TwitterLink">
+            </div>
+        </div>-->
+        <!-- LinkedIn Link -->
+        <!--<div class="col-xl-6">
+            <div class="submit-field">
+                <h5>Linkedin Link</h5>
+                <input class="with-border" asp-for="LinkedinLink">
+            </div>
+        </div>-->
+        <!-- Mobile Number -->
+        <!--<div class="col-xl-6">
+            <div class="submit-field">
+                <h5>Mobile Number</h5>
+                <input readonly class="with-border" asp-for="MobileNumber">
+            </div>
+        </div>-->
+        <!-- Email -->
+        <!--<div class="col-xl-6">
+                            <div class="submit-field">
+                                <h5>Email</h5>
+                                <input readonly class="with-border" asp-for="Email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <!--Attenchment Box-->
+        <!--<div class="col-xl-12">
+            <div class="dashboard-box" style="background-color: #d0d6dc;">-->
+        <!-- Headline -->
+        <!--<div class="headline">
+            <h3><i class="icon-material-outline-attach-file"></i> Attachments</h3>
+        </div>
+        <div class="content with-padding padding-bottom-0">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="attachments-container margin-top-0 margin-bottom-0">
+                        @if (Model.ResumePath != null)
+                        {
+                            <div class="attachment-box ripple-effect">
+                                <span>Resume</span>
+                                <a href=@Model.ResumePath style="cursor:pointer;" download="">
+                                    <i class="icon-feather-download" style="color:blue;"> Resume </i>
+                                </a>
+                                <a href="@Url.Action("DeleteResume","UserProfile")" class="remove-attachment" data-tippy-placement="top" title="Remove" style="text-align:center"></a>
+                            </div>
+                        }
+                    </div>
+                    <div class="clearfix"></div>-->
+        <!-- Upload Button -->
+        <!--<div class="uploadButton margin-top-0">
+                                <input class="uploadButton-input" asp-for="ResumeFile" accept="application/pdf" id="upload" />
+                                <label class="uploadButton-button ripple-effect" for="upload">Upload Resume Files</label>
+                                <span class="uploadButton-file-name">Maximum file size: 10 MB</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <!-- Button -->
+        <!--<div class="col-xl-12">
+            <button class="button ripple-effect big margin-top-30" type="submit">Save Changes</button>
+        </div>-->
+    </form>
+</div>
+@if (this.User.IsInRole("Candidate"))
+{
+    <div class="row">
+        <!-- Qualification Box -->
+        <div class="col-xl-12">
+            <div class="dashboard-box" style="background-color : #e0e6e6">
+
+                <div class="headline">
+                    <h3><i class="icon-material-outline-face"></i>My Qualification</h3>
+                </div>
+
+                <div class="col" style="margin-bottom:10px">
+                    <div class="col-xl-12 btn " style="text-align:right">
+                        <h4 style="text-align:left"><b style="color:red;">Note : </b>If it is your highest qualification marked checkbox as Checked.</h4>
+                        <button class="button ripple-effect medium" onclick="AddQualification()"><i class="icon-material-outline-add"></i> Add</button>
+                        <button class="button ripple-effect medium" onclick="RemoveQualification(0)"><i class="icon-material-outline-delete"></i> Remove</button>
+                    </div>
+                </div>
+
+                <!-- Qualification Form -->
+                <form id="formQualification" class="needs-validation" novalidate>
+                    <div class="col">
+                        <div id="divQualification" class="row">
+                            <div class="col-xl-12">
+                                <div class="submit-field">
+                                    <div>
+                                        <input id="chkHighestQualification_0" onchange=HighestQualificationChanged() type="checkbox">
+                                        <label for="" style="padding-left:5px; display:inline;">IsHighestQualification</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divQualification0_Remove" class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Qualification</h5>
+                                    <select id="txtQualification_0" name="EducationId" class="with-border form-control"
+                                            asp-items="@(new SelectList(ViewBag.Education, "EducationId", "Name"))" required>
+                                        <option value="">-- Select Course --</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please Select Qualification
+                                    </div>
+                                    <input id="txtQualificationId_0" type="text" name="Id" class="with-border form-control" style="display:none" value="">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>University Name</h5>
+                                    <input id="txtUniversityName_0" type="text" name="UniversityName" class="with-border form-control" value="" required>
+                                    <div class="invalid-feedback">
+                                        Please Enter University Name
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Completion Year</h5>
+                                    <input id="txtCompletionYear_0" type="date" max="9999-12-31" name="CompletionYear" class="with-border form-control" value="" required>
+                                    <div class="invalid-feedback">
+                                        Please Enter Completion Year
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <span>Percentage</span>
+                                    
+                                    <input readonly id="txtPercentage_0" type="number" name="Percentage" class="with-border form-control"  pattern="\d{2}" step="0.01" value="" required>
+                                    <div class="invalid-feedback">
+                                        Please Enter Valid Percentage
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Total Marks</h5>
+                                    <input id="txtTotalMarks_0" type="number" name="TotalMarks" class="with-border form-control" minlength="2" maxlength="4" required>
+                                    <div class="invalid-feedback">
+                                        Please provide Valid Total Marks.
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Marks Obtained</h5>
+                                    <input id="txtMarksObtained_0" type="number" name="MarksObtained" class="with-border form-control" minlength="2" maxlength="4" required>
+                                    <div class="invalid-feedback">
+                                        Please Enter Valid Marks Obtained.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6" style="display:none">
+                                <div class="submit-field">
+                                    <h5>Chronological Order</h5>
+                                    <input id="txtChronologicalQualificationOrder" name="ChronologicalQualificationOrder" type="text" class="with-border" value="0">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="col" style="margin-bottom:10px">
+                        <div class="col-xl-12 btn " style="text-align:right">
+                            <button class="button ripple-effect medium" type="submit">Save Qualification</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Headline -->
+
+                <div class="headline">
+                    <h3><i class="icon-brand-gitlab"></i>My Experience</h3>
+                </div>
+
+                <div class="col" style="margin-bottom:10px">
+                    <div class="col-xl-12 btn " style="text-align:right">
+                        <input type="text" class="keyword-input with-border" style="display:none" />
+                        <button class="button ripple-effect medium" onclick="AddExprience()"><i class="icon-material-outline-add"></i> Add</button>
+                        <button class="button ripple-effect medium" onclick="RemoveExperience(0)"><i class="icon-material-outline-delete"></i> Remove</button>
+                    </div>
+                </div>
+
+                <!-- Experience form -->
+                <form id="formExperience" class="needs-validation" novalidate>
+                    <div class="col">
+                        <div id="divExperience" class="row">
+                            <div id="div_0_Remove" class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Company Name</h5>
+                                    <input id="txtCompanyName_0" type="text" name="CompanyName" class="with-border form-control" value="" required>
+                                    <input id="txtExperienceId_0" type="text" name="Id" class="with-border form-control" style="display:none" value="">
+                                    <div class="invalid-feedback">
+                                        Please Enter Company Name
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Start Date</h5>
+                                    <input id="txtStartDate_0" type="date" name="StartDate" class="with-border form-control" value="" max="9999-12-31" required>
+                                    <div class="invalid-feedback">
+                                        Please Enter Start Date
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>End Date</h5>
+                                    <input id="txtEndtDate_0" type="date" name="EndtDate" class="with-border form-control" value="" max="9999-12-31" required>
+                                    <div class="invalid-feedback">
+                                        Please Enter Endt Date
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Designation Name</h5>
+                                    <input id="txtDesignationName_0" type="text" name="DesignationName" class="with-border form-control" value="" required>
+                                    <div class="invalid-feedback">
+                                        Please Enter Designation Name
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Reporting Officer Contact Number</h5>
+                                    <!-- Headline -->
+                                    <input id="txtCompanyContact_0" type="number" name="CompanyContact" class="with-border form-control" value="" maxlength="10" required>
+                                    <span asp-validation-for="OfficeContactNumber" class="text-danger"></span>
+                                    <div class="invalid-feedback">
+                                        Please Enter Valid Company Contact
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6" style="visibility:hidden">
+                                <div class="submit-field">
+                                    <h5>Chronological Order</h5>
+                                    <input id="txtChronologicalOrder" name="ChronologicalOrde" type="text" class="with-border" value="0">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col" style="margin-bottom:10px">
+                        <div class="col-xl-12 btn " style="text-align:right">
+                            <button class="button ripple-effect medium" type="submit" id="buttonsave">Save Experience</button>
+                        </div>
+                    </div>
+                    <br />
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+}
+<!--<form asp-controller="UserProfile" asp-action="UploadResume" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="UserProfileId" />
+    <input type="hidden" asp-for="LoginId" />
+    <input type="hidden" asp-for="UserProfileType" />
+    <input type="hidden" asp-for="Email" />
+    <input type="hidden" asp-for="FirstName" />
+    <input type="hidden" asp-for="MiddleName" />
+    <input type="hidden" asp-for="LastName" />
+    <div class="content">
+        <ul class="fields-ul">
+            <li>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="submit-field">
+                            <h5>Attachments</h5>-->
+<!-- Attachments -->
+<!--<div class="attachments-container margin-top-0 margin-bottom-0">
+    <div class="attachment-box ripple-effect">
+        <span>Cover Letter</span>
+        <i>PDF</i>
+        <button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
+    </div>
+    <div class="attachment-box ripple-effect">
+        <span>Contract</span>
+        <i>DOCX</i>
+        <button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
+    </div>
+</div>
+<div class="clearfix"></div>-->
+<!-- Upload Button -->
+<!--<div class="uploadButton margin-top-0">
+                                <input class="uploadButton-input" asp-for="ResumeFile" accept="application/pdf" id="upload" multiple />
+                                <label class="uploadButton-button ripple-effect" for="upload">Upload Files</label>
+                                <span class="uploadButton-file-name">Maximum file size: 10 MB</span>
+
+
+                            </div>
+                            <div class="col-xl-12">
+                                <button class="button ripple-effect big margin-top-30" type="submit">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</form>-->
+<div class="row">
+    <!--Address -->
+    <div class="col-xl-12">
+        <div class="dashboard-box" style="background-color: #2fc3e926;">
+            <div class="headline">
+                <h3><i class="icon-material-outline-add-location"></i>Address</h3>
+            </div>
+            <div class="content with-padding padding-bottom-0">
+                <form id="formAddress" class="needs-validation" novalidate>
+                    @if (this.User.IsInRole("Candidate"))
+                    {
+                        <div class="col">
+                            <div id="divAddress" class="row">
+                                <div class="col-xl-6 form-group">
+                                    <div class="submit-field">
+                                        <h5>Home Address 1</h5>
+                                        <input id="homeLine_1" type="text" name="homeaddress_1" class="with-border form-control" value="" required>
+                                        <input id="txthomeAddressId" type="text" style="display:none;" value="">
+                                        <div class="invalid-feedback">
+                                            Please Enter Your Address
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="submit-field">
+                                        <h5>Home Address 2</h5>
+                                        <input id="homeLine_2" type="text" name="homeaddress_2" class="with-border form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="submit-field">
+                                        <h5>Home Address 3</h5>
+                                        <input id="homeLine_3" type="text" name="homeaddress_3" class="with-border form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="Submit-feild">
+                                        <h5>Country</h5>
+                                        <select id="homecountry" class="with-border form-control" name="country" onchange="getHomesStates()" required>
+                                            <option value="">Select Country</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please Select Country
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="Submit-feild">
+                                        <h5>State</h5>
+                                        <select id="homestate" name="state" class="with-border form-control" onchange="getHomesDistricts()" required>
+                                            <option value="">Select State</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please Select State
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="Submit-feild">
+                                        <h5>District</h5>
+                                        <select id="homedistrict" class="with-border form-control" name="district" onchange="getHomesCitys()" required>
+                                            <option value="">Select District</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please Select District
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="Submit-feild">
+                                        <h5>City</h5>
+                                        <select id="homecity" class="with-border form-control" name="city">
+                                            <option value="0">Select City</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divOfficeAddress" class="row">
+                                <div class="col-xl-6 form-group">
+                                    <div class="submit-field">
+                                        <h5>Office Address 1</h5>
+                                        <input id="officeLine_1" type="text" name="officeaddress_1" class="with-border form-control" value="" />
+                                        <input id="txtofficeAddressId" type="text" style="display:none;" value="">
+                                        <div class="invalid-feedback">
+                                            Please Enter Your Address
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="submit-field">
+                                        <h5>Office Address 2</h5>
+                                        <input id="officeLine_2" type="text" name="officeaddress_2" class="with-border form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="submit-field">
+                                        <h5>Office Address 3</h5>
+                                        <input id="officeLine_3" type="text" name="officeaddress_3" class="with-border form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="Submit-feild">
+                                        <h5>Country</h5>
+                                        <select id="officecountry" class="with-border form-control" name="country" onchange="getOfficeStates()">
+                                            <option value="0">Select Country</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="Submit-feild">
+                                        <h5>State</h5>
+                                        <select id="officestate" name="state" class="with-border form-control" onchange="getOfficeDistricts()">
+                                            <option value="0">Select State</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="Submit-feild">
+                                        <h5>District</h5>
+                                        <select id="officedistrict" class="with-border form-control" name="district" onchange="getOfficeCitys()">
+                                            <option value="0">Select District</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <div class="Submit-feild">
+                                        <h5>City</h5>
+                                        <select id="officecity" class="with-border form-control" name="city">
+                                            <option value="0">Select City</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="divOfficeAddress" class="row">
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Office Address 1</h5>
+                                    <input id="officeLine_1" type="text" name="officeaddress_1" class="with-border form-control" value="" required>
+                                    <input id="txtofficeAddressId" type="text" style="display:none;" value="">
+                                    <div class="invalid-feedback">
+                                        Please Enter Your Address
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Office Address 2</h5>
+                                    <input id="officeLine_2" type="text" name="officeaddress_2" class="with-border form-control" value="">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="submit-field">
+                                    <h5>Office Address 3</h5>
+                                    <input id="officeLine_3" type="text" name="officeaddress_3" class="with-border form-control" value="">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="Submit-feild">
+                                    <h5>Country</h5>
+                                    <select id="officecountry" class="with-border form-control" name="country" onchange="getOfficeStates()">
+                                        <option value="0">Select Country</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="Submit-feild">
+                                    <h5>State</h5>
+                                    <select id="officestate" name="state" class="with-border form-control" onchange="getOfficeDistricts()">
+                                        <option value="0">Select State</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="Submit-feild">
+                                    <h5>District</h5>
+                                    <select id="officedistrict" class="with-border form-control" name="district" onchange="getOfficeCitys()">
+                                        <option value="0">Select District</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <div class="Submit-feild">
+                                    <h5>City</h5>
+                                    <select id="officecity" class="with-border form-control" name="city">
+                                        <option value="0">Select City</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-xl-12" style="text-align:right">
+                        <button class="button ripple-effect big margin-top-30" type="submit">Save Address</button>
+                    </div>
+                    <br />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Row / End -->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Profile.js?v=27102021"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.3/jquery.min.js"></script>*@
+    <script type="text/javascript">
+
+        function dobcheck() {
+            var dateString = document.getElementById("dob").value;
+            if (dateString != "") {
+                var today = new Date();
+                var birthDate = new Date(dateString);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                var da = today.getDate() - birthDate.getDate();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                if (m < 0) {
+                    m += 12;
+                }
+                if (da < 0) {
+                    da += 30;
+                }
+                if (age < 18) {
+                    alert("We require users to be 18 years old or over.");
+                    event.preventDefault();
+                    return false;
+                } else {
+                    alert("Data Saved Successfully");
+                }
+                
+            } else {
+                alert("Please Enter DOB");
+                return false;
+            }
+        }
+       
+    </script>
+}

@@ -1,0 +1,81 @@
+﻿@model XpertAditusUI.Models.Disclaimer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h1>Edit</h1>
+
+<h4>Disclaimer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DisclaimerId" />
+            <div class="form-group">
+                <label asp-for="Instruction" class="control-label"></label>
+                <textarea style="width:100%" asp-for="Instruction" id="editor"></textarea>
+                <span asp-validation-for="Instruction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseId" class="control-label"></label>
+                <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsActive" class="control-label"></label>
+                <div class="col-2">
+                    <label for="true">True</label>
+                    <input type="radio" asp-for="IsActive" value="True" />
+                    <label for="false">False</label>
+                    <input type="radio" asp-for="IsActive" value="False"/>
+                </div>
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                        <label asp-for="ModifiedBy" class="control-label"></label>
+                        <select asp-for="ModifiedBy" class="form-control" asp-items="ViewBag.ModifiedBy"></select>
+                        <span asp-validation-for="ModifiedBy" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ModifiedDate" class="control-label"></label>
+                        <input asp-for="ModifiedDate" class="form-control" />
+                        <span asp-validation-for="ModifiedDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CreatedDate" class="control-label"></label>
+                        <input asp-for="CreatedDate" class="form-control" />
+                        <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CreatedBy" class="control-label"></label>
+                        <select asp-for="CreatedBy" class="form-control" asp-items="ViewBag.CreatedBy"></select>
+                        <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/RichTextEditor/ckeditor.js"></script>
+    <script>
+        //Editor
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}
+

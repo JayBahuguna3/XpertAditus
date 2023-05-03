@@ -1,0 +1,485 @@
+﻿@model XpertAditusUI.Models.CandidateDetail
+
+@{
+    ViewData["Title"] = "Candidate Detail";
+}
+
+
+<!-- Wrapper -->
+<div id="wrapper" style="padding-top: 0px;">
+    <div class="single-page-header freelancer-header" data-background-image="images/single-freelancer.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-page-header-inner">
+                        <div class="left-side">
+                            @if (@Model.PhotoPath != null)
+                            {
+                                <div class="header-image freelancer-avatar"><img src=@Model.PhotoPath alt=""></div>
+                            }
+                            else
+                            {
+                                <div class="header-image freelancer-avatar"><img src="/images/user-avatar-big-02.jpg" alt=""></div>
+                            }
+                            <div class="header-details">
+
+                                @if (@Model != null)
+                                {
+                                    <h3>@Model.CandidateName <span>@Model.Qualification</span></h3>
+                                }
+                                <ul>
+                                    <li><img class="flag" src="images/flags/de.svg" alt=""> India</li>
+                                    <li><div class="verified-badge-with-title">Verified</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page Content
+    ================================================== -->
+    <div class="container">
+        <div class="row">
+
+            <!-- Content -->
+            <div class="col-xl-8 col-lg-8 content-right-offset">
+
+                <!-- Page Content -->
+                <div class="single-page-section">
+                    <h3 class="margin-bottom-25">About Me</h3>
+                    @if (@Model.Qualifications.Count > 0)
+                    {
+                        <p>My Name is @Model.CandidateName. I have done @Model.Qualification</p>
+                        <p>Eager to learn new technologies and methodologies. Always willing to innovate the new things which can improve the existing technology.</p>
+                    }
+                    else
+                    {
+                        <p>My Name is @Model.CandidateName.</p>
+                        <p>Eager to learn new technologies and methodologies. Always willing to innovate the new things which can improve the existing technology.</p>
+                    }
+                </div>
+
+                <div class="boxed-list margin-bottom-60">
+                    <div class="boxed-list-headline">
+                        <h3><i class="icon-material-outline-thumb-up"></i> Work History</h3>
+                    </div>
+                    <ul class="boxed-list-ul">
+                        @if (@Model != null)
+                        {
+                            @if (@Model.Experiences.Count > 0)
+                            {
+                                foreach (Experience experience in Model.Experiences)
+                                {
+                                    <li>
+                                        <div class="boxed-list-item">
+                                            <!-- Content -->
+                                            <div class="item-content">
+                                                <h4>@experience.DesignationName <span>@experience.CompanyName</span></h4>
+                                                <div class="item-details margin-top-10">
+                                                    <div class="detail-item"><i class="icon-material-outline-date-range"> <b>Start Date :</b></i> @experience.StartDate.ToString("MMMM, yyyy")</div>
+                                                    <div class="detail-item"><i class="icon-material-outline-date-range"> <b>End Date :</b></i> @experience.EndDate.ToString("MMMM, yyyy")</div>
+                                                </div>
+                                                @*<div class="item-description">
+                                                        <p>Excellent programmer - fully carried out my project in a very professional manner. </p>
+                                                    </div>*@
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li>
+                                    <div class="boxed-list-item">
+                                        <h2>No Work History to Display</h2>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="boxed-list margin-bottom-60">
+                    <div class="boxed-list-headline">
+                        <h3><i class="icon-material-outline-business"></i> Education History</h3>
+                    </div>
+                    <ul class="boxed-list-ul">
+                        @if (@Model != null)
+                        {
+                            @if (@Model.Qualifications.Count > 0)
+                            {
+                                foreach (Qualification qualification in Model.Qualifications)
+                                {
+                                    <li>
+                                        <div class="boxed-list-item">
+                                            <!-- Avatar -->
+                                            <div class="item-image">
+                                                <img src="/images/single-company.jpg" alt="">
+                                            </div>
+
+                                            <!-- Content -->
+                                            <div class="item-content">
+                                                @*<h4>@qualification.Name</h4>*@
+                                                <h4>@qualification.Name</h4>
+                                                <div class="item-details margin-top-7">
+                                                    <div class="detail-item"><a href="#"><i class="icon-material-outline-business"></i> @qualification.UniversityName</a></div>
+                                                    <div class="detail-item"><i class="icon-material-outline-date-range"> <b>Completion Year : </b></i> @qualification.CompletionYear.ToString("MMMM dd, yyyy")</div>
+                                                </div>
+                                                <div class="item-description">
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li>
+                                    <div class="boxed-list-item">
+                                        <h2>No Education History to Display</h2>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="boxed-list margin-bottom-60">
+                    <div class="boxed-list-headline">
+                        <h3><i class="icon-material-outline-business"></i> Candidate Interview Videos</h3>
+                    </div>
+                    <ul class="boxed-list-ul">
+                        @if (@Model != null)
+                        {
+                            @if (@Model.InterviewResults.Count > 0)
+                            {
+                                foreach (InterviewResult interviewResult in Model.InterviewResults)
+                                {
+                                    <li>
+                                        <div class="boxed-list-item">
+                                            <div class="task-listing-description">
+                                                <h3 class="task-listing-title" style="background-color: #f2f2f2">@interviewResult.VideoName</h3>
+                                                <br />
+                                                <video style="width: 250px;" controls>
+                                                    <source src=@interviewResult.VideoAbsolutePath type="video/mp4">
+                                                    Your browser does not support HTML video.
+                                                </video>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li>
+                                    <div class="boxed-list-item">
+                                        <h2>No Interview Videos to Display</h2>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <!-- Boxed List / End -->
+
+            </div>
+
+
+            <!-- Sidebar -->
+            <div class="col-xl-4 col-lg-4">
+                <div class="sidebar-container">
+
+                    <!-- Profile Overview -->
+                    <div class="profile-overview">
+                        @if (@Model != null)
+                        {
+                            <div class="overview-item"><strong>2 Years</strong><span>Experience</span></div>
+                            <div class="overview-item"><strong>@Model.Designation</strong><span>Designation</span></div>
+                        }
+                    </div>
+
+                        <!-- Button -->
+                        <div class="notify-box margin-top-15" style=" margin-bottom: 20px; transform-box: fill-box;">
+                            <select style="height: auto;" name="JobDesignation" asp-for="Designation" asp-items="@(new SelectList(ViewBag.Jobs, "JobId", "JobDesignation"))">
+                                <option value="0">Select Job</option>
+                            </select>
+                        </div>
+
+                        @*<a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></a>*@
+                        <a onclick="Send_InterviewNotification('@Model.UserProfileID')" href="#" class="apply-now-button">Make an Interview Offer <i class="icon-material-outline-arrow-right-alt"></i></a>
+                        <!-- Freelancer Indicators -->
+                        <div class="sidebar-widget">
+                            <div class="freelancer-indicators">
+
+                                <!-- Indicator -->
+                                <div class="indicator">
+                                    <strong>0%</strong>
+                                    <div class="indicator-bar" data-indicator-percentage="88"><span></span></div>
+                                    <span>Job Success</span>
+                                </div>
+
+                                <!-- Indicator -->
+                                <div class="indicator">
+                                    <strong>0%</strong>
+                                    <div class="indicator-bar" data-indicator-percentage="100"><span></span></div>
+                                    <span>Recommendation</span>
+                                </div>
+
+                                <!-- Indicator -->
+                                <div class="indicator">
+                                    <strong>0%</strong>
+                                    <div class="indicator-bar" data-indicator-percentage="90"><span></span></div>
+                                    <span>On Time</span>
+                                </div>
+
+                                <!-- Indicator -->
+                                <div class="indicator">
+                                    <strong>0%</strong>
+                                    <div class="indicator-bar" data-indicator-percentage="80"><span></span></div>
+                                    <span>On Budget</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Widget -->
+                        <div class="sidebar-widget">
+                            <h3>Social Profiles</h3>
+                            <div class="freelancer-socials margin-top-25">
+                                <ul>
+                                    <li><a href=@Model.FacebookLink title="Facebook" data-tippy-placement="top"><i class="icon-brand-facebook"></i></a></li>
+                                    <li><a href=@Model.TwitterLink title="Twitter" data-tippy-placement="top"><i class="icon-brand-twitter"></i></a></li>
+                                    <li><a href=@Model.LinkedinLink title="Linkdin" data-tippy-placement="top"><i class="icon-brand-linkedin"></i></a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Widget -->
+                        @*<div class="sidebar-widget">
+            <h3>Skills</h3>
+            <div class="task-tags">
+                <span>iOS</span>
+                <span>Android</span>
+                <span>mobile apps</span>
+                <span>design</span>
+                <span>Python</span>
+                <span>Flask</span>
+                <span>PHP</span>
+                <span>WordPress</span>
+            </div>
+        </div>*@
+
+                        <!-- Widget -->
+                        <div class="sidebar-widget">
+                            <h3>Attachments</h3>
+                            <div class="attachments-container">
+                                <a href=/@Model.ResumePath class="attachment-box ripple-effect" download=""><span>Resume</span><i></i></a>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar Widget -->
+                        <!--<div class="sidebar-widget">
+    <h3>Bookmark or Share</h3>-->
+                        <!-- Bookmark Button -->
+                        <!--<button class="bookmark-button margin-bottom-25">
+        <span class="bookmark-icon"></span>
+        <span class="bookmark-text">Bookmark</span>
+        <span class="bookmarked-text">Bookmarked</span>
+    </button>-->
+                        <!-- Copy URL -->
+                        <!--<div class="copy-url">
+        <input id="copy-url" type="text" value="" class="with-border">
+        <button class="copy-url-button ripple-effect" data-clipboard-target="#copy-url" title="Copy to Clipboard" data-tippy-placement="top"><i class="icon-material-outline-file-copy"></i></button>
+    </div>-->
+                        <!-- Share Buttons -->
+                        <!--<div class="share-buttons margin-top-25">
+            <div class="share-buttons-trigger"><i class="icon-feather-share-2"></i></div>
+            <div class="share-buttons-content">
+                <span>Interesting? <strong>Share It!</strong></span>
+                <ul class="share-buttons-icons">
+                    <li><a href="#" data-button-color="#3b5998" title="Share on Facebook" data-tippy-placement="top"><i class="icon-brand-facebook-f"></i></a></li>
+                    <li><a href="#" data-button-color="#1da1f2" title="Share on Twitter" data-tippy-placement="top"><i class="icon-brand-twitter"></i></a></li>
+                    <li><a href="#" data-button-color="#dd4b39" title="Share on Google Plus" data-tippy-placement="top"><i class="icon-brand-google-plus-g"></i></a></li>
+                    <li><a href="#" data-button-color="#0077b5" title="Share on LinkedIn" data-tippy-placement="top"><i class="icon-brand-linkedin-in"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>-->
+
+                    </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Wrapper / End -->
+<!-- Make an Offer Popup
+================================================== -->
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+    <!--Tabs -->
+    <div class="sign-in-form">
+
+        <ul class="popup-tabs-nav">
+            <li><a href="#tab">Make an Offer</a></li>
+        </ul>
+
+        <div class="popup-tabs-container">
+
+            <!-- Tab -->
+            <div class="popup-tab-content" id="tab">
+
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h3>Discuss your project with David</h3>
+                </div>
+
+                <!-- Form -->
+                <form method="post">
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-outline-account-circle"></i>
+                        <input type="text" class="input-text with-border" name="name" id="name" placeholder="First and Last Name" />
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-baseline-mail-outline"></i>
+                        <input type="text" class="input-text with-border" name="emailaddress" id="emailaddress" placeholder="Email Address" />
+                    </div>
+
+                    <textarea name="textarea" cols="10" placeholder="Message" class="with-border"></textarea>
+
+                    <div class="uploadButton margin-top-25">
+                        <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload" multiple />
+                        <label class="uploadButton-button ripple-effect" for="upload">Add Attachments</label>
+                        <span class="uploadButton-file-name">Allowed file types: zip, pdf, png, jpg <br> Max. files size: 50 MB.</span>
+                    </div>
+
+                </form>
+
+                <!-- Button -->
+                <button class="button margin-top-35 full-width button-sliding-icon ripple-effect" type="submit">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+            </div>
+            <!-- Login -->
+            <div class="popup-tab-content" id="loginn">
+
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h3>Discuss Your Project With Tom</h3>
+                </div>
+
+                <!-- Form -->
+                <form method="post" id="make-an-offer-form">
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-outline-account-circle"></i>
+                        <input type="text" class="input-text with-border" name="name2" id="name2" placeholder="First and Last Name" required />
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-baseline-mail-outline"></i>
+                        <input type="text" class="input-text with-border" name="emailaddress2" id="emailaddress2" placeholder="Email Address" required />
+                    </div>
+
+                    <textarea name="textarea" cols="10" placeholder="Message" class="with-border"></textarea>
+
+                    <div class="uploadButton margin-top-25">
+                        <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload-cv" multiple />
+                        <label class="uploadButton-button" for="upload-cv">Add Attachments</label>
+                        <span class="uploadButton-file-name">Allowed file types: zip, pdf, png, jpg <br> Max. files size: 50 MB.</span>
+                    </div>
+
+                </form>
+
+                <!-- Button -->
+                <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="make-an-offer-form">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Make an Offer Popup / End -->
+<!-- Scripts
+================================================== -->
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/jquery-migrate-3.3.2.min.js"></script>
+<script src="js/mmenu.min.js"></script>
+<script src="js/tippy.all.min.js"></script>
+<script src="js/simplebar.min.js"></script>
+<script src="js/bootstrap-slider.min.js"></script>
+<script src="js/bootstrap-select.min.js"></script>
+<script src="js/snackbar.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/counterup.min.js"></script>
+<script src="js/magnific-popup.min.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="js/custom.js"></script>
+
+<!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
+<script>
+    // Snackbar for user status switcher
+    $('#snackbar-user-status label').click(function () {
+        Snackbar.show({
+            text: 'Your status has been changed!',
+            pos: 'bottom-center',
+            showAction: false,
+            actionText: "Dismiss",
+            duration: 3000,
+            textColor: '#fff',
+            backgroundColor: '#383838'
+        });
+    });
+
+    // Snackbar for "place a bid" button
+    $('#snackbar-place-bid').click(function () {
+        Snackbar.show({
+            text: 'Your bid has been placed!',
+        });
+    });
+
+
+    // Snackbar for copy to clipboard button
+    $('.copy-url-button').click(function () {
+        Snackbar.show({
+            text: 'Copied to clipboard!',
+        });
+    });
+</script>
+
+@section Scripts {
+    <script>
+
+        function Send_InterviewNotification(UserProfileID) {
+            showSpinner();
+            var userProfileID = UserProfileID;
+            var jobId = $("#Designation option:selected").val();
+            var rootPath = window.location.protocol + "//" + window.location.host + "/CandidateDetail/Send_InterviewNotification?userProfileID=" + userProfileID + "&jobId=" + jobId;
+
+            var request = $.ajax({
+                url: rootPath,
+                type: 'POST'
+            });
+
+            request.done(function (msg) {
+                hideSpinner();
+                if (msg.error) {
+                    alert(msg.message);
+                }
+                else {
+                    alert(msg.message);
+                }
+
+            });
+            request.fail(function (jqXHR, textStatus) {
+                hideSpinner();
+                alert("Request failed: " + textStatus);
+            });
+
+        }
+    </script>
+}

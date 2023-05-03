@@ -1,0 +1,90 @@
+﻿@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@model XpertAditusUI.Models.CourseMaster
+@{
+    ViewData["Title"] = "Course";
+}
+@{
+
+    IEnumerable<CollegeProfile> collegeProfiles = ViewData["CollegeProfiles"] as IEnumerable<CollegeProfile>;
+}
+
+
+<style>
+    .freelancer-overview {
+        padding: 5px 5px !important;
+    }
+
+    .freelancer-details {
+        padding: 60px 40px 45px 100px !important;
+    }
+</style>
+
+@if (ViewBag.candidateResultStatus != null)
+{
+    <form method="post" asp-controller="EligibleCourses" asp-action="EligibleCourses" style="width:105%">
+        <div class="container">
+            <div>
+                <h4 style="color: red">Note : Please Update your profile Before Selecting Course.  @Html.ActionLink("Update User Profile", "Profile", "UserProfile")</h4>
+            </div>
+            <hr />
+            <div class="notify-box margin-top-15">
+                <div class="row">
+                    <div class="col-md-4">
+                        <select id="ddlCourse" name="Name" asp-for="Name" asp-items="@(new SelectList(ViewBag.Courses,"Name","Name"))" class="form-control">
+                            <option value="0">Please select Course</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <button class="btn btn-primary" type="submit">Find College</button>
+                    </div>
+                </div>
+            </div>
+            @if (ViewBag.SelectedCourse != null)
+            {
+                @foreach (CollegeProfile collegeProfile in collegeProfiles)
+                {
+                    <div class="freelancers-container freelancers-list-layout margin-top-35">
+                        <div class="freelancer">
+
+                            <!-- Overview -->
+                            <div class="freelancer-overview">
+                                <div class="freelancer-overview-inner">
+                                    <div class="company-logo">
+                                        <img src=@collegeProfile.LogoPath alt="" style="height: 150px; width: 160px;">
+                                    </div>
+
+                                    <!-- Name -->
+                                    <div class="freelancer-name">
+                                        <h4><a href="#">@collegeProfile.Name<img class="flag" src="images/flags/in.svg" alt="" data-tippy-placement="top" data-tippy="" data-original-title="United Kingdom"></a></h4>
+                                        <span>@collegeProfile.CollegeContact</span><br>
+                                        <span>@collegeProfile.CollegeEmail</span><br>
+                                        <span>@collegeProfile.CollegeAddress</span><br>
+                                        <span class="star-rating" data-rating=@collegeProfile.Ratings></span>
+                                        <!-- Rating -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="freelancer-details">
+                                <span onclick='Navigate("@collegeProfile.CollegeProfileId")' class="button button-sliding-icon ripple-effect">View And Apply<i class="icon-material-outline-arrow-right-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+    </form>
+}
+else
+{
+    <div>
+
+        <img src="/images/select course.jpeg" width="100%" />
+
+    </div>
+}
+@section Scripts {
+    <script>
+        function Navigate(id) {
+            window.location.href = "/EligibleCourses/CollegeDetail/" + id;
+        }
+    </script>
+}

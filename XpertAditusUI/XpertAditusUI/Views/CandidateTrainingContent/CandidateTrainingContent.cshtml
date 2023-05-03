@@ -1,0 +1,103 @@
+﻿@model IEnumerable<XpertAditusUI.Models.TrainingContentsMaster>
+
+@{
+    ViewData["Title"] = "TrainingContents";
+    Layout = "~/Views/Shared/_LayoutFullScreen.cshtml";
+}
+@if (ViewBag.ActiveCourse != null && ViewBag.CurrectContent != null)
+{
+    <div class="course_fullview_wrapper">
+        @if (ViewBag.CurrectContent.ContentType == "File")
+        {
+            <iframe style="height:100%;width:100%" src="\@ViewBag.CurrectContent.Path#toolbar=0"></iframe>
+            @*<a href="@ViewBag.CurrectContent.Path" download>
+                    <span class=button-sliding-icon ripple-effect">Download Training Content</span>
+                </a>*@
+        }
+        else if (ViewBag.CurrectContent.ContentType == "Video")
+        {
+            <video id="video-id" class="video_iframe" controls>
+                <source src="\@ViewBag.CurrectContent.Path" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+        }
+        else if (ViewBag.CurrectContent.ContentType == "Youtube")
+        {
+
+            <iframe id="video-id" class="video_iframe" src="@ViewBag.CurrectContent.Path"
+                    frameborder="0"></iframe>
+        }
+        else if (ViewBag.CurrectContent.ContentType == "Embeded")
+        {
+            <embed id="video-id" class="video_iframe" @Html.Raw(ViewBag.CurrectContent.Path) />
+        }
+
+        <input type="hidden" id="url" value="">
+        <div class="course__play_warp courseListPlayer ">
+            <div class="play_warp_header d-flex justify-content-between">
+                <h3 class="font_16  mb-0 lesson_count default-font">
+                    <a href="/Mycourses/index" class="theme_btn_mini"> <i class="fas fa-arrow-left"></i> </a> @ViewBag.ActiveCourse.Name
+                </h3>
+            </div>
+            @*<p class="font_14  duration_time default-font"> 5H </p>*@
+            <div class="course__play_list">
+                @*<span class="pl-2"> Introduction with Blendor</span*@
+                @foreach (TrainingContentsMaster trainingContentsMaster in Model)
+                {
+                    <div class="single_play_list">
+                        <a class="" href="/CandidateTrainingContent/CandidateTrainingContent/@ViewBag.ActiveCourse.CourseId/@trainingContentsMaster.TrainingContentId">
+                            <div class="course_play_name">
+                                <label class="primary_checkbox d-flex mb-0">
+                                    <input onclick="UpdateTrainingStatusComplete('@trainingContentsMaster.TrainingContentId','@ViewBag.ActiveCourse.CourseId')"
+                                           type="checkbox" data-lesson="16" data-course="3" class="course_name" name="billing_address" value="1" 
+                                           @if(ViewBag.checkUserTestPassedOrTestAttempt)
+                                            {
+                                               <text>disabled </text>
+                                            }
+                                           @if (trainingContentsMaster.CandidateTrainingStatus.Count > 0) { 
+                                               
+                                                <text>checked </text> 
+                                           
+                                           }
+                                           >
+                                    <span class="checkmark mr_15"></span>
+                                    <i class="ti-control-play"></i>
+                                </label>
+                                <span>@trainingContentsMaster.Name</span>
+                            </div>
+                            @*<span class="course_play_duration">3H</span>*@
+                        </a>
+                    </div>
+                }
+
+                <div class="row justify-content-center text-center"> </div>
+                <div class="pb-5 mb-5"></div>
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        <script src="~/js/CandidateTraining/CandidateTraining.js"></script>
+    }
+}
+else if (ViewBag.CurrectContent == null)
+{
+    <div>
+        <h3 style="text-align:center; background-color:powderblue; -webkit-text-stroke-width: thin;">
+            No Training content available,
+            Please connect with support team.
+        </h3>
+
+    </div>
+}
+else
+{
+    <div>
+        <h3 style="text-align:center; background-color:powderblue; -webkit-text-stroke-width: thin;">
+            No Active Course,
+            Please go to course section and select course.
+        </h3>
+
+    </div>
+}
+
+

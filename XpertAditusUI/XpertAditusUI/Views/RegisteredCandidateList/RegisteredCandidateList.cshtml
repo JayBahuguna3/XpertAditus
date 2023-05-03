@@ -1,0 +1,324 @@
+﻿@using XpertAditusUI.Models;
+@model CollegeProfile
+@{
+    ViewData["Title"] = "RegisteredCandidateList";
+    var item = ViewBag.Alllist;
+}
+@if (ViewBag.Alllist != null)
+{
+    <h1>Registered Candidate List</h1>
+    <hr />
+}
+<p>
+    @if (ViewBag.Alllist != null)
+    {
+        <a style="font-weight: bolder;" class="btn btn-success" asp-action="Export_CandidateList">
+            Export
+            <i class="icon-material-outline-keyboard-arrow-down" style="margin-left: 12px; font-weight: bolder; align-self: center;"></i>
+        </a>
+    }
+    else if (ViewBag.TestPassed != null)
+    {
+        <a style="font-weight: bolder;" class="btn btn-success" asp-action="Export_TestPassedCandidateList">
+            Export
+            <i class="icon-material-outline-keyboard-arrow-down" style="margin-left: 12px; font-weight: bolder; align-self: center;"></i>
+        </a>
+    }
+    else if (ViewBag.EnrolledforTest != null)
+    {
+        <a style="font-weight: bolder;" class="btn btn-success" asp-action=" Export_EnrolledCandidateList">
+            Export
+            <i class="icon-material-outline-keyboard-arrow-down" style="margin-left: 12px; font-weight: bolder; align-self: center;"></i>
+        </a>
+    }
+    else if (ViewBag.Enrolledwithzerofee != null)
+    {
+        <a style="font-weight: bolder;" class="btn btn-success" asp-action="Export_EnrolledwithZerofeeCandidateList">
+            Export
+            <i class="icon-material-outline-keyboard-arrow-down" style="margin-left: 12px; font-weight: bolder; align-self: center;"></i>
+        </a>
+    }
+    else if (ViewBag.Alllist != null)
+    {
+        <a style="font-weight: bolder;" class="btn btn-success" asp-action="Export_CandidateList">
+            Export
+            <i class="icon-material-outline-keyboard-arrow-down" style="margin-left: 12px; font-weight: bolder; align-self: center;"></i>
+        </a>
+    }
+    else if (ViewBag.AppliedforColleges != null)
+    {
+        <a style="font-weight: bolder;" class="btn btn-success" asp-action="Export_AppliedforcollegeCandidateList">
+            Export
+            <i class="icon-material-outline-keyboard-arrow-down" style="margin-left: 12px; font-weight: bolder; align-self: center;"></i>
+        </a>
+    }
+</p>
+<br />
+<div class="row">
+    <form method="post" asp-controller="RegisteredCandidateList" asp-action="RegisteredCandidateList">
+
+        <div class="col">
+            <label for="">Choose Type</label>
+            <select class="form-control" name="dropdownid">
+                <option value="0">-- Select --</option>
+                <option value="AllRegistered">All Registered</option>
+                <option value="EnrolledforTest">Enrolled for Test</option>
+                <option value="Enrolledwithzerofee">Enrolled with zero fee</option>
+                <option value="EnrolledforTest">Enrolled for Test</option>
+                <option value="TestPassed">Test Passed</option>
+                <option value="AppliedforColleges">Applied for Colleges</option>
+                <option value="Appliedforspecificcollege">Applied for specific college</option>
+            </select>
+            <input id="Submit1" class="btn btn-success" type="submit" value="submit" />
+        </div>
+    </form>
+    @if (ViewBag.Appliedforspecificcollege != null  || ViewBag.CollegeName != null)
+    {
+    <div class="col-3">
+        <form asp-controller="RegisteredCandidateList" asp-action="RegisteredCandidateList" method="post" role="form">
+            <label for="">Choose College</label>
+            <select asp-for="CollegeProfileId"
+                    class="form-control"
+                    asp-items="ViewBag.CollegeProfile">
+                <option value="0">-- Select College --</option>
+            </select>
+            <input id="Submit1" class="btn btn-success" type="submit" value="submit" />
+        </form>
+            </div>
+    }
+    </div>
+
+
+<br />
+<table class="table table-striped" id="regiseredCandListdatatable">
+    @if (ViewBag.Alllist != null)
+    {
+        <thead>
+            <tr>
+                <th>
+                    Candidate Name
+                </th>
+                <th>
+                    Registered Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var name in item)
+            {
+                <tr>
+                    <td>
+                        @name.FirstName
+                        @name.MiddleName
+                        @name.LastName
+                    </td>
+                    <td>
+                        @name.CreatedDate
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    }
+    else if (ViewBag.TestPassed != null)
+    {
+        <h1>Passed Candidate List</h1>
+        <hr />
+        <thead>
+            <tr>
+                <th>
+                    Candidate Name
+                </th>
+                <th>
+                    Test Passed Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var name in ViewBag.TestPassed)
+            {
+                <tr>
+                    <td>
+                        @name.FirstName
+                        @name.MiddleName
+                        @name.LastName
+                    </td>
+                    <td>
+                        @name.CreatedDate
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    }
+    else if (ViewBag.EnrolledforTest != null)
+    {
+        <h1>Enrolled Candidate List</h1>
+        <hr />
+        <thead>
+            <tr>
+                <th>
+                    Candidate Name
+                </th>
+                <th>
+                     Enrolled Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var name in ViewBag.EnrolledforTest)
+            {
+                <tr>
+                    <td>
+                        @name.FirstName
+                        @name.MiddleName
+                        @name.LastName
+                    </td>
+                    <td>
+                        @name.CreatedDate
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    }
+    else if (ViewBag.Enrolledwithzerofee != null)
+    {
+        <h1>Enrolled with Zero fee Candidate List</h1>
+        <hr />
+        <thead>
+            <tr>
+                <th>
+                    Candidate Name
+                </th>
+                <th>
+                    Enrolled Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var name in ViewBag.Enrolledwithzerofee)
+            {
+                <tr>
+                    <td>
+                        @name.FirstName
+                        @name.MiddleName
+                        @name.LastName
+                    </td>
+                    <td>
+                        @name.CreatedDate
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    else if (ViewBag.Appliedforspecificcollege != null)
+    {
+        <h1>Applied Candidate List for Specific College</h1>
+        <hr />
+        <thead>
+            <tr>
+                <th>
+                    Candidate Name
+                </th>
+                <th>
+                    Applied Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var name in ViewBag.Appliedforspecificcollege)
+            {
+                <tr>
+                    <td>
+                        @name.FirstName
+                        @name.MiddleName
+                        @name.LastName
+                    </td>
+                    <td>
+                        @name.CreatedDate
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    else if (ViewBag.AppliedforColleges != null)
+    {
+        <h1>Applied Candidate List for College</h1>
+        <hr />
+
+        <thead>
+            <tr>
+                <th>
+                    Candidate Name
+                </th>
+                <th>
+                    Applied Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var name in ViewBag.AppliedforColleges)
+            {
+                <tr>
+                    <td>
+                        @name.FirstName
+                        @name.MiddleName
+                        @name.LastName
+                    </td>
+                    <td>
+                        @name.CreatedDate
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    else if (ViewBag.CollegeName != null)
+    {
+        <h1>Applied Candidate List for Specific College </h1>
+        <hr />
+        <thead>
+            <tr>
+                <th>
+                    Candidate Name
+                </th>
+                <th>
+                    Applied Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var name in ViewBag.CollegeName)
+            {
+                <tr>
+                    <td>
+                        @name.FirstName
+                        @name.MiddleName
+                        @name.LastName
+                    </td>
+                    <td>
+                        @name.CreatedDate
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@section scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#regiseredCandListdatatable').DataTable().scrollTableBody();
+        });
+
+    </script>
+}
+
+
+

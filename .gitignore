@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/XpertAditusUI/XpertAditusUI/bin/Debug/net5.0/cs
+/XpertAditusUI/XpertAditusUI/bin/Debug/net5.0
+/XpertAditusUI/XpertAditusUI/obj/Debug/net5.0
+/XpertAditusUI/XpertAditusUI/obj
+/XpertAditusUI/XpertAditusUI/bin/Release/net5.0

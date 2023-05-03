@@ -1,0 +1,60 @@
+﻿@model XpertAditusUI.Models.TrainingContentsMaster
+
+@{
+    ViewData["Title"] = "Edit";
+
+}
+
+
+<h1>Edit TrainingContents</h1>
+<br/>
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="TrainingContentId" />
+    <div class="form-group">
+        <label asp-for="Name" class="control-label" style="color:navy;"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <span style="color:black;"><b>Note - Only enter path if content type - Youtube is selected.</b></span>
+        <label asp-for="Path" class="control-label"  style="color:navy;"></label>
+        <input asp-for="Path" class="form-control" />
+        <span asp-validation-for="Path" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ContentType" class="control-label"  style="color:navy;"></label>
+        <label class="control-label">Previously uploaded file : </label>
+        <input type="file" name="files" value="Upload" class="form-control" />
+        <input asp-for="ContentType" class="form-control" type="text" />
+        <span asp-validation-for="ContentType" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Course" class="control-label"  style="color:navy;"></label>
+        <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+        <span asp-validation-for="CourseId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <b><label asp-for="IsActive" class="control-label" style="color:navy;"></label></b>
+        <div class="col">
+        <div class="row">
+            <input class="with-border" type="radio" asp-for="IsActive" style="margin-right: 10px"  value="True" />
+            <label for="true" style="margin-right: 16px"><i style="color:black"></i>True</label>
+            <input class="with-border" style="margin-right: 10px" type="radio" asp-for="IsActive" value="False" />
+            <label for="false" style="margin-right: 16px"><i style="color:black"></i>False</label>
+            <span asp-validation-for="IsActive" class="text-danger"></span>
+        </div>
+            </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" />  
+        <a asp-action="Index" >    |  Back to List</a>
+    </div>
+</form>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

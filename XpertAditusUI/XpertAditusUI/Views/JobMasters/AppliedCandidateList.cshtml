@@ -1,0 +1,162 @@
+﻿@using XpertAditusUI.Models;
+@using System.Linq;
+@model UserProfile
+@{
+    ViewData["Title"] = "Applied Candidate List";
+    var appliedCandidateList = ViewBag.AppliedCandidatelist as List<UserProfile>;
+    var jobId = ViewBag.JobId;
+    var approvedJobList = ViewBag.ApprovedJobList as List<ApprovalJobs>;
+
+}
+@if (jobId != null)
+{
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-9 col-lg-8 content-left-offset">
+
+            <h3 class="page-title">Search Results</h3>
+            <form asp-action="AppliedCandidateList" method="post">
+
+                <div class="notify-box margin-top-15">
+                    <div class="switch-container">
+                        <label class="switch"><input type="checkbox"><span class="switch-button"></span><span class="switch-text">Turn on email alerts for this search</span></label>
+                    </div>
+
+                    <div class="sort-by">
+                        <span style="white-space: nowrap;margin-right:15px;">Sort by:</span>
+                        <select id="Sortby" class="with-border form-control" name="sortby" onchange="this.form.submit()">
+                            <option value="">--Select NewOld Jobs--</option>
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                        </select>
+                        <input type="hidden" name="jobId" value="@ViewBag.JobId" />
+
+                    </div>
+                </div>
+
+                <div class="listings-container margin-top-35">
+                    <div id="divJobList">
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-material-outline-supervisor-account"></i>Applied Candidates List </h3>
+                                </div>
+                                <div class="content">
+                                    <div class="dashboard-box-list">
+                                        @foreach (var item in appliedCandidateList)
+                                        {
+                                            <!-- Overview -->
+                                            <div class="freelancer-overview manage-candidates">
+                                                <div class="freelancer-overview-inner">
+
+                                                    <!-- Avatar -->
+                                                    <div class="freelancer-avatar">
+                                                        @* <div class="verified-badge"></div>*@
+                                                        <a href="#"><img src="@item.PhotoPath" alt=""></a>
+
+                                                    </div>
+
+                                                    <!-- Name -->
+                                                    <div class="freelancer-name">
+                                                        <h4><a href="#">@item.FirstName @item.MiddleName @item.LastName</a></h4>
+
+                                                        <!-- Details -->
+                                                        <span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"></i>@item.Email</a></span>
+                                                        <span class="freelancer-detail-item"><i class="icon-feather-phone"></i> @item.MobileNumber</span>
+
+                                                        <!-- Rating -->
+                                                        <!--<br>
+                                                <span class="company-not-rated">Minimum of 3 votes required</span>-->
+                                                        <!-- Buttons -->
+                                                        <div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
+                                                            @if (item.ResumePath != null)
+                                                            {
+                                                                <a href="@item.ResumePath" class="button ripple-effect" id="downloadCV" download=""><i class="icon-feather-download"></i> Download The CV</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="" class="button ripple-effect" id="download" onclick="message()"><i class="icon-feather-download"></i> Download The CV</a>
+
+                                                            }
+
+                                                            @{
+                                                                var isApproved = approvedJobList.Where(e =>
+                                                                    e.UserProfileId == item.UserProfileId && e.JobId == jobId).Count() > 0;
+                                                            }
+                                                            @if (isApproved)
+                                                            {
+                                                                <a class="button" style="background-color:forestgreen; color:#ffffff;border-radius: 5px;">
+                                                                    <i class="icon-feather-mail"></i>
+                                                                    Send Successfully
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a onclick="Send_JobApprovalMail('@item.UserProfileId', '@ViewBag.JobId')"
+                                                                   class="button" style="background-color:blue; color:#ffffff;border-radius: 5px;">
+                                                                    <i class="icon-feather-mail"></i>
+                                                                    Send Message
+                                                                </a>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                         }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+ }
+ else
+ {
+    <h3 class="page-title">NO Active Candidates</h3>
+ }
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    @*<script src="~/js/JobDashBoard/JobDashBoards.js?v=02072021"></script>*@
+    @*<script src="~/js/JobDashBoard/JobDashBoards.js"></script>*@
+    <script src="~/js/JobDashBoard/AppliedCandidateList.js"></script>
+    <script>
+   $(function () {
+        $("#downloadCV").click(function () {
+            $.ajax(
+            {
+                url: '@Url.Action("DownloadAttachment", "PostDetail")',
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'json',
+                data: {
+                    studentId: 123
+                },
+                type: "GET",
+                success: function () {
+                    window.location = '@Url.Action("DownloadAttachment", "PostDetail", new { studentId = 123 })';
+                }
+            });
+
+        });
+
+   });
+
+
+        function message() {
+            alert("This candidate has not uploaded the CV so you can not download the CV");
+        }
+    </script>
+
+
+}

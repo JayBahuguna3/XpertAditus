@@ -1,0 +1,186 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    string name = "@";
+}
+<style>
+    .valid {
+        color: green;
+    }
+
+        .valid:before {
+            position: relative;
+            left: -35px;
+            content: "✔";
+        }
+
+    /* Add a red text color and an "x" when the requirements are wrong */
+    .invalid {
+        color: red;
+    }
+
+        .invalid:before {
+            position: relative;
+            left: -35px;
+            content: "✖";
+        }
+
+    .was-validated .form-control:invalid {
+        border-color: red !important;
+    }
+</style>
+
+<div id="titlebar" class="gradient">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <h2>Register</h2>
+
+                <!-- Breadcrumbs -->
+                @*<nav id="breadcrumbs" class="dark">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li>Log In</li>
+                    </ul>
+                </nav>*@
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page Content
+================================================== -->
+@*<div class="container">*@
+    <div id="divError" class="invalid-feedback" style="display:none;"></div>
+    <div id="divOtp" class="row" style="display:none;">
+        <div class="col-md-12">
+            <form id="formOtp" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="">Mobile Otp</label>
+                    <input type="text" class="form-control" name="txt" id="txtMobileOtp" placeholder="Mobile Otp" required>
+                    <div class="invalid-feedback">
+                        Please Enter Mobile Otp
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <label for="">Email Otp</label>
+                    <input type="text" class="form-control" name="txtEmailOtp" id="txtEmailOtp" placeholder="Email Otp" required>
+                    <div class="invalid-feedback">
+                        Please Enter Email Otp
+                    </div>
+                </div>*@
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="divRegister" class="row">
+        <div class="col-md-12">
+            <form id="formRegister" class="needs-validation" novalidate>
+                <h4>Create a new account.</h4>
+                <hr />
+                <div class="form-group">
+                    <label for="">Choose Type</label>
+                    <select class="form-control" name="employeeType" id="employeeType" required>
+                        <option value="">None</option>
+                        @*<option value="Employee">Employer</option>*@
+                        <option value="Candidate">Candidate</option>
+                        <option value="College">College</option>
+                        <option value="Company">Company</option>
+                        <option value="Employee">Employee</option>
+
+                    </select>
+                    <div class="invalid-feedback">
+                        Please Choose Type
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">First name</label>
+                    <input type="text" class="form-control" name="txtFirstName" id="txtFirstName" placeholder="First name" pattern="[A-Za-z\\s]*" required  >
+                    <div class="invalid-feedback">
+                        Please Enter Valid First name
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Middel name</label>
+                    <input type="text" class="form-control" id="txtMiddleName" placeholder="Middel name" pattern="[A-Za-z\\s]*" >
+                </div>
+                <div class="form-group">
+                    <label for="">Last name</label>
+                    <input type="text" class="form-control" id="txtLastName" placeholder="Last name" pattern="[A-Za-z\\s]*"
+                           required>
+                    <div class="invalid-feedback">
+                        Please Enter Valid Last name
+                    </div>
+                </div>
+                <div class=" form-group input-group">
+                    <input type="text" class="form-control" id="txtUsername" placeholder="Username"
+                           required>
+                    <div class="invalid-feedback">
+                        Please Enter Username
+                    </div>
+                </div>
+                <div class=" form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">@name</span>
+                    </div>
+                    <input type="email" class="form-control" id="txtEmail" placeholder="Email"
+                           aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Please choose a valid email.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="validationCustom06">Password</label>
+                    <input type="password" class="form-control" id="txtPsw" name="txtPsw" placeholder="passsword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                    <div class="invalid-feedback">
+                        Please Enter Password
+                    </div>
+                    <div id="message" class="invalid-feedback">
+                        Password must contain the following:
+                        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                        <p id="number" class="invalid">A <b>number</b></p>
+                        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                        <p id="alphanumeric" class="invalid">alphanumeric <b> characters</b></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="validationCustom06">Confirm Password</label>
+                    <input type="password" class="form-control" id="txtConfirmPsw" name="txtConfirmPsw" placeholder="Confirm passsword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                    <div class="invalid-feedback">
+                        Please Enter Password
+                    </div>
+                    <div id="Confirmmessage" class="invalid-feedback">
+                        Password must contain the following:
+                        <p id="ConfirmPswletter" class="invalid">A <b>lowercase</b> letter</p>
+                        <p id="ConfirmPswcapital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                        <p id="ConfirmPswnumber" class="invalid">A <b>number</b></p>
+                        <p id="ConfirmPswlength" class="invalid">Minimum <b>8 characters</b></p>
+                        <p id="ConfirmPswalphanumeric" class="invalid">alphanumeric <b> characters</b></p>
+                    </div>
+                    <div id="ComaprePassword" class="invalid-feedback" style="display:none;">
+                        Password is mismatch
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="validationCustom05">Phone No</label>
+                    <input type="text" class="form-control" id="txtPhoneNo" placeholder="Phone No" pattern="[1-9]{1}[0-9]{9}" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid phone no.
+                    </div>
+                </div>
+                <button id="btnRegister" type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <input type="hidden" id="txtAiLeadsDomain" value="@ViewData["AiLeadsDomain"]">
+        </div>
+    </div>
+@*</div>*@
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Account/Register.js?v=27072021"></script>
+}

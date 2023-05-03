@@ -1,0 +1,131 @@
+﻿@model XpertAditusUI.Models.CollegeProfile
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>CollegeProfile</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+         <!--   <div class="form-group">
+                <label asp-for="CollegeProfileId" class="control-label"></label>
+                <input asp-for="CollegeProfileId" class="form-control" />
+                <span asp-validation-for="CollegeProfileId" class="text-danger"></span>
+            </div>-->
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoginId" class="control-label"></label>
+                <select asp-for="LoginId" class ="form-control" asp-items="ViewBag.LoginId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsActive" class="control-label"></label>
+                <input asp-for="IsActive" class="form-control" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CollegeContact" class="control-label"></label>
+                <input asp-for="CollegeContact" class="form-control" />
+                <span asp-validation-for="CollegeContact" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CollegeEmail" class="control-label"></label>
+                <input asp-for="CollegeEmail" class="form-control" />
+                <span asp-validation-for="CollegeEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LogoPath" class="control-label"></label>
+                <input asp-for="LogoPath" class="form-control" />
+                <span asp-validation-for="LogoPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AttachementPath" class="control-label"></label>
+                <input asp-for="AttachementPath" class="form-control" />
+                <span asp-validation-for="AttachementPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reviews" class="control-label"></label>
+                <input asp-for="Reviews" class="form-control" />
+                <span asp-validation-for="Reviews" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ratings" class="control-label"></label>
+                <input asp-for="Ratings" class="form-control" />
+                <span asp-validation-for="Ratings" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CollegeWebsiteLink" class="control-label"></label>
+                <input asp-for="CollegeWebsiteLink" class="form-control" />
+                <span asp-validation-for="CollegeWebsiteLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="About" class="control-label"></label>
+                <input asp-for="About" class="form-control" />
+                <span asp-validation-for="About" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CollegeAddress" class="control-label"></label>
+                <input asp-for="CollegeAddress" class="form-control" />
+                <span asp-validation-for="CollegeAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CityId" class="control-label"></label>
+                <input asp-for="CityId" class="form-control" />
+                <span asp-validation-for="CityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictId" class="control-label"></label>
+                <input asp-for="DistrictId" class="form-control" />
+                <span asp-validation-for="DistrictId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StateId" class="control-label"></label>
+                <input asp-for="StateId" class="form-control" />
+                <span asp-validation-for="StateId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                <input asp-for="CountryId" class="form-control" />
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedDate" class="control-label"></label>
+                <input asp-for="UpdatedDate" class="form-control" />
+                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <select asp-for="CreatedBy" class ="form-control" asp-items="ViewBag.CreatedBy"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedBy" class="control-label"></label>
+                <select asp-for="UpdatedBy" class ="form-control" asp-items="ViewBag.UpdatedBy"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

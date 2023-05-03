@@ -1,0 +1,91 @@
+﻿@model XpertAditusUI.Models.PamonthlyTest
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h1>Edit Questionnaire</h1>
+<hr />
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="MonthlyTestId" />
+    <div class="form-group">
+        <label asp-for="Course" class="control-label"></label>
+        <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId">
+            <option value="">---- Select Course ----</option>
+        </select>
+        <span asp-validation-for="CourseId" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Month" class="control-label"></label>
+        <select asp-for="Month" class="form-control">
+            <option value="">---- Select Month ----</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+        <span asp-validation-for="Month" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Year" class="control-label"></label>
+        <select asp-for="Year" class="form-control">
+            <option value="">---- Select Year ----</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+        </select>
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TestType" class="control-label"></label>
+        <select asp-for="TestType" class="form-control">
+            <option value="">---- Select Test Type ----</option>
+            <option>MCQ</option>
+            <option>Video</option>
+            <option>CaseStudy</option>
+        </select>
+        <span asp-validation-for="TestType" class="text-danger"></span>
+    </div>
+    <div class="form-group" @* onkeyup="EnableDisable(this)"*@>
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" id="myText" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsActive" class="control-label"></label>
+        <br>
+        <input type="radio" asp-for="IsActive" value="True" />
+        <label for="true">True</label>
+        <input type="radio" asp-for="IsActive" value="False" />
+        <label for="false">False</label>
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-success" />
+    </div>
+    <div>
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

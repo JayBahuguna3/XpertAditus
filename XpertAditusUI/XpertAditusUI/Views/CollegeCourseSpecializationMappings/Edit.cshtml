@@ -1,0 +1,157 @@
+﻿@model XpertAditusUI.Models.CollegeCourseSpecializationMapping
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4></h4>
+
+<hr />
+<div class="row">
+    <div class="col-xl-12">
+        <div style="color:red"> @Html.ValidationMessageFor(m => m.CourseId)</div>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CollegeCourseSpecializationId" />
+            <div class="row">
+
+                <div class="col-xl-6">
+                    <div class="form-group">
+                        <label asp-for="CourseId" class="control-label" style="color: black; font-weight: revert;">Course</label>
+                        <select id="CourseID" asp-for="CourseId" class="form-control" value="" asp-items="ViewBag.CourseID" style="height:55px">
+                            <option value="">---- Select Course ----</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group">
+                        <label asp-for="EducationId" class="control-label" style="color: black; font-weight: revert;">ReqQualification</label>
+                        <select id="EducationId" asp-for="EducationId" class="form-control" value="" asp-items="ViewBag.EducationId" style="height:55px">
+                            <option value="">---- Select Education ----</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="form-group">
+                        <label asp-for="HigherSecondary" class="control-label">AnyHigherSecondary</label>
+                        <input id="checkboxId" asp-for="HigherSecondary" type="checkbox" value="True" style=" height: 40px; width: 20px;" />
+                        <span asp-validation-for="HigherSecondary" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group">
+                        <label asp-for="Graduate" class="control-label">AnyGraduate</label>
+                        <input id="checkboxId" type="checkbox" asp-for="Graduate" value="True" style=" height: 40px; width: 20px;" />
+                        <span asp-validation-for="Graduate" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="form-group">
+                        <label asp-for="MinTestScore" class="control-label" style="color: black; font-weight: revert;">Student Min. AIMS Score for Qualifying</label>
+                        <input asp-for="MinTestScore" typr="text" class="form-control" />
+                        <span asp-validation-for="MinTestScore" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group">
+                        <label asp-for="MinAcademicPercentage" class="control-label" style="color: black; font-weight: revert;">Student Min. Academic Percentage for Qualifying</label>
+                        <input asp-for="MinAcademicPercentage" class="form-control" />
+                        <span asp-validation-for="MinAcademicPercentage" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="form-group">
+                        <label asp-for="IsActive" class="control-label" style="color: black; font-weight: revert;"></label>
+                        <div class="col">
+                            <div class="row">
+                                <label for="true">True</label>
+                                <input type="radio" asp-for="IsActive" value="True" />
+                                <label for="false" style="padding-left:20px">False</label>
+                                <input type="radio" asp-for="IsActive" value="False" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        //import { Items } from "../../wwwroot/pdfjs/pdf.worker";
+
+        $(function () {
+
+            $("input[type=checkbox]").click(function () {
+                var isDisabled = $(this).is(":checked");
+                $("#EducationId").attr("disabled", isDisabled);
+
+            });
+
+            $("#EducationId").change(function () {
+                debugger;
+                if (event.target.value != "") {
+                    $("input:Checkbox").prop("disabled", true);
+                }
+                else {
+                    $("input:Checkbox").prop("disabled", false);
+                }
+            });
+        });
+
+    </script>
+
+    /* END EXTERNAL SOURCE */
+    /* BEGIN EXTERNAL SOURCE */
+    <script type="text/javascript">
+    $(document).ready(function () {
+        LoadQualification();
+    })
+        $("#CourseID").change(function () {
+        LoadQualification();
+    });
+        var LoadQualification = function () {
+         $.ajax({
+             url: '@Url.Action("LoadQualification", "CollegeCourseSpecializationMappings")',
+            type: 'GET',
+             data: {
+                 CourseID: $('#CourseID').val(),
+            },
+             success: function (result) {
+                 var selectedValue = $('#EducationId').val();
+                 $('#EducationId').find('option').remove()
+                 $('#EducationId').append('<option value="">---- Select Education ----</option>')
+                 for (i = 0; i < result.length; i++) {
+                     $('#EducationId').append('<option value="' + result[i].educationId + '">' + result[i].name + '</option>')
+                 }
+                 $('#EducationId').val(selectedValue);
+            },
+            error: function () {
+            }
+           });
+    }
+    </script>
+}

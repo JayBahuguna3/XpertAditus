@@ -1,0 +1,75 @@
+﻿@using XpertAditusUI.Models;
+@model JobMaster
+@{
+    ViewData["Title"] = "Applied Job List";
+    var applied = ViewBag.Appliedjoblist;
+    var appliedbutton = ViewBag.applyinfo;
+    int days = 0;
+    var approvedJobs = ViewBag.ApprovedJobs;
+
+}
+<div class="dashboard-headline">
+    <h3>Applied Job History</h3>
+
+
+</div>
+<div class="container">
+
+    <div class="row">
+
+        <!-- Dashboard Box -->
+        <div class="col-xl-12">
+            <div class="dashboard-box margin-top-0">
+
+                <!-- Headline -->
+                <div class="headline">
+                    <h3><i class="icon-material-outline-business-center"></i> My Applied Job List</h3>
+                </div>
+                @foreach (var item in applied)
+                {
+                    <div class="content">
+                        <ul class="dashboard-box-list">
+                            <li>
+                                <!-- Job Listing -->
+                                <div class="job-listing">
+
+                                    <!-- Job Listing Details -->
+                                    <div class="job-listing-details">
+
+                                        <!-- Details -->
+                                        <div class="job-listing-description">
+                                            <h3 class="job-listing-title">
+                                                <a href="#">@item.CompanyName</a>
+                                                 @foreach (var approvedlist in approvedJobs)
+                                                  {
+                                                     @if (item.JobId == approvedlist.JobId)
+                                                      {
+                                                         <span class="dashboard-status-button green" style="background: forestgreen; color: #fff; ">Shortlisted</span>
+                                                      }
+                                                      else
+                                                      {
+                                                         @*<span class="dashboard-status-button green">Pending Approval</span>*@
+                                                      }
+                                                  }
+                                            </h3>
+                                            <h3 class="job-listing-title">@item.JobDesignation</h3>
+                                            <p class="job-listing-text">@item.Description</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="buttons-to-right always-visible">
+                                    <a asp-controller="JobDashBoard" asp-action="AppliedJobInfo" asp-route-jobId="@item.JobId" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> About The Job <span class="button-info">0</span></a>
+                                    @*<a href="#" class="button gray ripple-effect ico" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                    <a href="#" class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>*@
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                }
+            </div>
+        </div>
+    </div>

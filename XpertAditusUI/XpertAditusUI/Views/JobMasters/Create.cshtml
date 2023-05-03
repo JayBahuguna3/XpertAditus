@@ -1,0 +1,216 @@
+﻿@model XpertAditusUI.Models.JobMaster
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label.required::after {
+        content: " *";
+        color: red;
+    }
+</style>
+
+<!-- Dashboard Headline -->
+<div class="dashboard-headline">
+    <h3>Post a Job</h3>
+</div>
+
+<!-- Row -->
+<div class="row">
+    <!-- Dashboard Box -->
+    <div class="col-xl-12">
+        <div class="dashboard-box margin-top-0">
+
+            <!-- Headline -->
+            <div class="headline">
+                <h3><i class="icon-feather-folder-plus"></i> Job Submission Form</h3>
+            </div>
+            <form asp-action="Create">
+                <div class="content with-padding padding-bottom-10">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label asp-for="CompanyName" class="control-label required"></label>
+                                <div class="input-with-icon">
+                                    @*<input asp-for="CompanyName" class="form-control" placeholder="Type Company Name" />*@
+                                    <input asp-for="CompanyName" class="form-control" value="@ViewBag.CompanyName"  />
+                                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label asp-for="UserProfileId" class="control-label required">Employee MailId</label>
+                                <input asp-for="UserProfileId" class="form-control" value="@ViewBag.EmailId" readonly />
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label asp-for="JobDesignation" class="control-label required"></label>
+                                <input asp-for="JobDesignation" class="form-control with-border" placeholder="Type Address" />
+                                <span asp-validation-for="JobDesignation" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label asp-for="StateId" class="control-label required">State</label>
+                                <select asp-for="StateId" class="chosen" asp-items="ViewBag.StateId">
+                                    <option value=" ">Select State</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label asp-for="DistrictId" class="control-label required">District</label>
+                                <select asp-for="DistrictId" class="chosen" asp-items="ViewBag.DistrictId">
+                                    <option value=" ">Select District</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label asp-for="CityId" class="control-label required">Job City</label>
+                                <select asp-for="CityId" class="chosen" asp-items="ViewBag.CityId">
+                                    <option value=" ">Select City</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <label class="required">Experience</label>
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="input-with-icon">
+                                        <div class="form-group">
+                                            <input asp-for="MinExperience" class="form-control with-border" placeholder="Min" />
+                                            <span asp-validation-for="MinExperience" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="input-with-icon">
+                                        <div class="form-group">
+                                            <input asp-for="MaxExperience" class="form-control with-border" placeholder="Max" />
+                                            <span asp-validation-for="MaxExperience" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="input-with-icon">
+                                <div class="form-group">
+                                    <label asp-for="Ctc" class="control-label required">CTC</label>
+                                    <input asp-for="Ctc" class="form-control with-border" placeholder="Enter CTC" />
+                                    <span asp-validation-for="Ctc" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="input-with-icon">
+                                <div class="form-group">
+                                    <label asp-for="ExpectedJoiningDate" class="control-label required"></label>
+                                    <input asp-for="ExpectedJoiningDate" class="form-control with-border" placeholder="Enter JoiningDate" />
+                                    <span asp-validation-for="ExpectedJoiningDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="input-with-icon">
+                                <div class="form-group">
+                                    <label asp-for="LastDate" class="control-label required"></label>
+                                    <input asp-for="LastDate" class="form-control" placeholder="Enter Date" />
+                                    <span asp-validation-for="LastDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="input-with-icon">
+                                <div class="form-group">
+                                    <label asp-for="NoOfOpening" class="control-label required"></label>
+                                    <input asp-for="NoOfOpening" class="form-control with-border" placeholder="Enter NoOfOpenings" />
+                                    <span asp-validation-for="NoOfOpening" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="input-with-icon">
+                                <div class="form-group">
+                                    <label asp-for="Industry" class="control-label required"></label>
+                                    <select asp-for="Industry" class="form-control with-border" asp-items="ViewBag.Industry"></select>
+                                    <span asp-validation-for="Industry" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label asp-for="Category" class="control-label required">Job Category</label>
+                                <select asp-for="Category" class="form-control with-border" asp-items="ViewBag.Category"></select>
+                                <span asp-validation-for="Category" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label asp-for="WorkShift" class="control-label required">Working Slot</label>
+                                <select asp-for="WorkShift" class="form-control with-border" asp-items="ViewBag.WorkShift"></select>
+                                <span asp-validation-for="WorkShift" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="input-with-icon">
+                                <div class="form-group">
+                                    <label asp-for="JobLevel" class="control-label required"></label>
+                                    <select asp-for="JobLevel" class="form-control with-border" asp-items="ViewBag.JobLevel"></select>
+                                    <span asp-validation-for="JobLevel" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label asp-for="IsActive" class="control-label required"></label>
+                                <select asp-for="IsActive" class="form-control">
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                                <span asp-validation-for="IsActive" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label required">Description</label>
+                                @*@Html.DropDownList("idmail", Model.Description, new { style = "width:100%;", multiple = "multiple", value = @Model.selectedDescription })*@
+
+                                <textarea cols="30" rows="5" class="with-border" asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <input type="submit" value="Create Job" class="button ripple-effect big margin-top-30" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".chosen").chosen();
+            });
+        </script>
+
+    }
+}
+

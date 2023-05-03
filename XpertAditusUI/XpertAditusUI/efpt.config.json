@@ -1,0 +1,265 @@
+﻿{
+   "CodeGenerationMode": 0,
+   "ContextClassName": "XpertAditusDbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "Data",
+   "OutputPath": "Models",
+   "ProjectRootNamespace": "XpertAditusUI",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[Address]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Admission]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppliedJobs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ApprovalJobs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetRoleClaims]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUserClaims]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUserLogins]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUserRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUsers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUserTokens]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CandidateCollegeMapping]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CandidateResult]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CandidateTrainingStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CityMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CollegeAttachments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CollegeCourseSpecializationMapping]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CollegeProfile]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CollegeStudentMapping]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CompanyProfile]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CountryMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Course]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CourseMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Courses]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CourseSpecializationMapping]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Disclaimer]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DisclaimerAccetped]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DistrictMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[EducationMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Experience]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[InterviewResult]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[JobMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[JobQualification]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OtpMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PACandidateResult]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PADisclaimer]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PADisclaimerAccetped]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PAMonthlyTest]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PAQuestionnaire]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PAQuestionnaireResult]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PATestCaseAttachments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PATestScenario]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PATrainingContentMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PAVideoQuestionResult]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PaymentHistory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PpoInfo]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PpoLogic]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Qualification]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Questionnaire]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[QuestionnaireResult]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SentNotifications]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShortlistedCandidates]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SpecializationMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[StateMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TestScenario]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TrainingContentsMaster]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserCourses]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserProfile]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "WIN-8P33VP8OELU.XpertAditusPrd",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}

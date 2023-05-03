@@ -1,0 +1,76 @@
+﻿@using XpertAditusUI.Models
+@model PamonthlyTest
+@{
+    ViewData["Title"] = "Case Study";
+    bool testCompleted = Convert.ToBoolean(ViewBag.TestCompleted);
+}
+@if ((bool)ViewBag.MonthlyTestAvailable)
+{
+    @if (testCompleted)
+    {
+        <div>
+            <h1> Your Case study documents already submitted</h1>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <h2 style="padding-bottom:15px">Case study  Information</h2>
+            <form asp-controller="PACaseStudy" asp-action="SaveCaseStudyDocuments" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label> Test Name <span class="required-field"></span></label>
+                            <input asp-for="Name" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Test Description <span class="required-field"></span></label>
+                            <input asp-for="Description" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Test Description <span class="required-field"></span></label>
+                            <input class="file-upload" asp-for="Attachments" multiple />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="display:none">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input asp-for="CandidateResultId" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top:10px">
+                    <input id="submit" type="submit" value="Next" class="btn btn-primary" style="display:none" />
+                    <input type="button" value="submit" class="btn btn-primary" onclick="checkDocuments()" />
+                </div>
+            </form>
+        </div>
+        @section Scripts
+{
+            <script type="text/javascript">
+                function checkDocuments() {
+                    if ($('#Attachments').prop('files')[0] == undefined) {
+                        alert("Please Attachment aleast one document");
+                    }
+                    else {
+                        $("#submit").click();
+                    }
+                }
+            </script>
+        }
+    }
+}
+else
+{
+    <h1>No Monthly Test Available</h1>
+}

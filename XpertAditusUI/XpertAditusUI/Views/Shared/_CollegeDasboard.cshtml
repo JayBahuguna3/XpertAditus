@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.Configuration
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject IConfiguration Configuration
+@{
+    TempData.Keep("Pws");
+    string AiLeadsDomain = Configuration["AiLeadsDomain"];
+    string pws = TempData["Pws"].ToString();
+    var parms = new Dictionary<string, string>
+                {
+                    { "tokan", "0120dc4a-7d68-4f5a-9ec3-e4bbca384c73" },
+                    { "userName", User.Identity.Name },
+                    { "Password", pws }
+                };
+}
+ <ul data-submenu-title="Evaluation">
+    <li><a asp-controller="PACaseStudy" asp-action="PACaseStudySubmittedStudentList"><i class="icon-material-outline-rate-review"></i> Case Study</a></li>
+    <li><a href="/PAInterview/PAVideoTestSubmittedStudentList"><i class="icon-material-outline-rate-review"></i> Video Test</a></li>
+</ul>
+<ul data-submenu-title="Account">
+    <li><a href="/userprofile"><i class="icon-material-outline-settings"></i>Update User Profile</a></li>
+    <li><a asp-controller="CollegeProfile" asp-action="CollegeProfile"><i class="icon-material-outline-settings"></i>College Profile</a></li>
+    <li><a asp-controller="CollegeCourseSpecializationMappings" asp-action="Index"><i class="icon-material-outline-settings"></i>Create course</a></li>
+    <li>
+        <a asp-protocol="https" asp-host="@AiLeadsDomain" asp-controller="CollegeProfile" asp-action="AutoLogineUser" asp-all-route-data="parms" target="_blank">
+            <i class="icon-material-outline-star-border"></i>Leads
+        </a>
+    </li>
+    <li><a asp-controller="CollegeDashBoard" asp-action="AppliedStudentList"><i class="icon-material-outline-settings"></i>Applied Student </a></li>
+    <li><a asp-controller="CollegeDashBoard" asp-action="AdmittedStudentList"><i class="icon-material-outline-settings"></i>Admitted Student</a></li>
+    
+    <li><a href="/Identity/Account/Logout"><i class="icon-material-outline-power-settings-new"></i>Logout</a></li>
+</ul>

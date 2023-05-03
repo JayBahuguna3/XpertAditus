@@ -1,0 +1,86 @@
+﻿@model IEnumerable<XpertAditusUI.Models.CollegeProfile>
+
+@{
+    ViewData["Title"] = "RegisteredCollegesList";
+}
+
+<h1>Registered Colleges List</h1>
+<hr />
+<div style="margin:10px;">
+    <form method="get" action="RegisteredColleges">
+        <input checked="@(ViewBag.CheckStatus == true ? "checked" : null )" type="checkbox" name="GetAllColleges" id="checkId"
+               style=" height: 15px; width: 20px;"/>
+         <label for="" style="padding-left:5px; display:inline; font-size: 20px; color: forestgreen;">
+             Select All Colleges (registered or unregistered)
+        </label>
+    </form>
+</div>
+<br />
+<p>
+    <a style="font-weight: bolder;" class="btn btn-success" asp-action="Export_CollegesList">
+        Export
+        <i class="icon-material-outline-keyboard-arrow-down" style="margin-left: 12px; font-weight: bolder; align-self: center;"></i>
+    </a>
+</p>
+<br />
+<table class="table table-striped" id="regiseredColgListdatatable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CollegeContact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CollegeEmail)
+            </th>
+            <th>
+                @*Action*@
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CollegeContact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CollegeEmail)
+                </td>
+                <td>
+                    <a style="font-weight: bolder;" class="btn btn-primary" asp-action="ViewDetails" asp-route-id="@item.CollegeProfileId">
+                        View Details
+                        <i class="icon-material-outline-arrow-forward" style="margin-left: 12px; font-weight: bolder; align-self: center;"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@section scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#regiseredColgListdatatable').DataTable().scrollTableBody();
+        });
+
+        // show list on UI
+        $(function () {
+            $("#checkId").change(function () {
+                $(this).closest('form').submit();
+            });
+        })
+
+    </script>
+}

@@ -1,0 +1,187 @@
+﻿@model IEnumerable<XpertAditusUI.Models.CandidateDashBoard>
+
+@{
+    ViewData["Title"] = "Candidate DashBoard";
+    var jobdesignation = ViewBag.JobDesignations;
+}
+<style>
+    a:not([href]):not([tabindex]) {
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-3 col-lg-4">
+            <div class="sidebar-container">
+
+                <!-- Location -->
+                <div class="sidebar-widget">
+                    <h3>Location</h3>
+                    @*<div class="input-with-icon">
+                            <div id="autocomplete-container">
+                                <input id="autocomplete-input" type="text" placeholder="Location">
+                            </div>
+                            <i class="icon-material-outline-location-on"></i>
+                        </div>*@
+                    <select id="ddLocation" class="with-border form-control" asp-items="ViewBag.Districts" onchange="filterData()">
+                        <option value="00000000-0000-0000-0000-000000000000"> Select Location </option>
+                    </select>
+                </div>
+
+                <!-- Category -->
+                <div class="sidebar-widget">
+                    <h3>Designation Category</h3>
+                    <select id="jobsSearch" onchange="filterData()"  asp-items="ViewBag.JobDesignations" class="with-border form-control" data-selected-text-format="count" data-size="7" title="All Categories" tabindex="-98">
+                        <option value="">Select JobDesignation</option>
+                    </select>
+                </div>
+
+                <!-- Keywords -->
+                <div style="display:none;" class="sidebar-widget">
+                    <h3>Keywords</h3>
+                    <div class="keywords-container">
+                        <div class="keyword-input-container">
+                            <input type="text" class="keyword-input" placeholder="e.g. task title">
+                            <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
+                        </div>
+                        <div class="keywords-list" style="height: auto;"><!-- keywords go here --></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                @* Hourly Rate
+                    <div class="sidebar-widget">
+                         <h3>Hourly Rate</h3>
+                         <div class="margin-top-55"></div>
+
+                          Range Slider
+                         <div class="slider slider-horizontal" id=""><div class="slider-track"><div class="slider-track-low" style="left: 0px; width: 0%;"></div><div class="slider-selection" style="left: 0%; width: 100%;"></div><div class="slider-track-high" style="right: 0px; width: 0%;"></div></div><div class="tooltip tooltip-main top" role="presentation" style="left: 50%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">$10 - $250</div></div><div class="tooltip tooltip-min top" role="presentation" style="left: 0%; display: none;"><div class="tooltip-arrow"></div><div class="tooltip-inner">$NaN - $NaN</div></div><div class="tooltip tooltip-max top" role="presentation" style="left: 100%; display: none;"><div class="tooltip-arrow"></div><div class="tooltip-inner">$NaN - $NaN</div></div><div class="slider-handle min-slider-handle round" role="slider" aria-valuemin="10" aria-valuemax="250" aria-valuenow="10" aria-valuetext="$NaN - $NaN" tabindex="0" style="left: 0%;"></div><div class="slider-handle max-slider-handle round" role="slider" aria-valuemin="10" aria-valuemax="250" aria-valuenow="250" aria-valuetext="$NaN - $NaN" tabindex="0" style="left: 100%;"></div></div><input class="range-slider" type="text" value="10,250" data-slider-currency="$" data-slider-min="10" data-slider-max="250" data-slider-step="5" data-slider-value="[10,250]" data-value="10,250" style="display: none;">
+                     </div>*@
+
+                <!-- Tags -->
+                <!--<div class="sidebar-widget">
+                <h3>Skills</h3>
+
+                <div class="tags-container">
+                    <div class="tag">
+                        <input type="checkbox" id="tag1">
+                        <label for="tag1">front-end dev</label>
+                    </div>
+                    <div class="tag">
+                        <input type="checkbox" id="tag2">
+                        <label for="tag2">angular</label>
+                    </div>
+                    <div class="tag">
+                        <input type="checkbox" id="tag3">
+                        <label for="tag3">react</label>
+                    </div>
+                    <div class="tag">
+                        <input type="checkbox" id="tag4">
+                        <label for="tag4">vue js</label>
+                    </div>
+                    <div class="tag">
+                        <input type="checkbox" id="tag5">
+                        <label for="tag5">web apps</label>
+                    </div>
+                    <div class="tag">
+                        <input type="checkbox" id="tag6">
+                        <label for="tag6">design</label>
+                    </div>
+                    <div class="tag">
+                        <input type="checkbox" id="tag7">
+                        <label for="tag7">wordpress</label>
+                    </div>
+                </div>
+                <div class="clearfix"></div>-->
+                <!-- More Skills -->
+                <!--<div class="keywords-container margin-top-20">
+                <div class="keyword-input-container">
+                    <input type="text" class="keyword-input" placeholder="add more skills">
+                    <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
+                </div>
+                <div class="keywords-list" style="height: auto;">-->
+                <!-- keywords go here -->
+                <!--</div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>-->
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-8 content-left-offset">
+
+            <h3 class="page-title">Search Results</h3>
+
+            <div class="notify-box margin-top-15">
+                <div class="switch-container">
+                    <label class="switch"><input type="checkbox"><span class="switch-button"></span><span class="switch-text">Turn on email alerts for this search</span></label>
+                </div>
+
+                <div style="" class="sort-by">
+                    <span style="white-space: nowrap;margin-right:15px;">Sort by:</span>
+                    <select id="Sortby" class="with-border form-control" onchange="filterData()">
+                        <option value="0">Relevance</option>
+                        <option value="1">Newest</option>
+                        <option value="2">Oldest</option>
+                        <option value="3">Random</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Freelancers List Container -->
+            <div id="divCandidateList" class="freelancers-container freelancers-list-layout margin-top-35">
+                @foreach (CandidateDashBoard candidateDashBoard in Model)
+                {
+                    <div class="freelancer">
+
+                        <!-- Overview -->
+                        <div class="freelancer-overview">
+                            <div class="freelancer-overview-inner">
+
+                                <!-- Bookmark Icon -->
+                                <span class="bookmark-icon"></span>
+
+                                <!-- Avatar -->
+                                <div class="freelancer-avatar">
+                                    <div class="verified-badge"></div>
+                                    <a href="single-freelancer-profile.html"><img src="/images/user-avatar-big-01.jpg" alt=""></a>
+                                </div>
+
+                                <!-- Name -->
+                                <div class="freelancer-name">
+                                    <h4><a href="#">@candidateDashBoard.CandidateName<img class="flag" src="@candidateDashBoard.photoPath == null ? images/flags/gb.svg : @candidateDashBoard.photoPath" alt="" data-tippy-placement="top" data-tippy="" data-original-title="United Kingdom"></a></h4>
+                                    <span>Candidate</span>
+                                    <!-- Rating -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="freelancer-details">
+                            <div class="freelancer-details-list">
+                                <ul>
+                                    <li>Location <strong><i class="icon-material-outline-location-on"></i>@candidateDashBoard.CityName</strong></li>
+                                    <li>Score<strong>@candidateDashBoard.scrore</strong></li>
+                                    <li>Course Completed <strong>@candidateDashBoard.courseName</strong></li>
+                                </ul>
+                            </div>
+                            @*<button id="delete_video" class="btn btn-primary" onclick='Navigate("@candidateDashBoard.userProfileId")'>View Profile </button>*@
+                            <a onclick='Navigate("@candidateDashBoard.userProfileId")' class="button button-sliding-icon ripple-effect" style="width: 190px;">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- Tasks Container / End -->
+            <!-- Pagination -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/CandidateDashBoard/CandidateDashBoard.js"></script>
+}

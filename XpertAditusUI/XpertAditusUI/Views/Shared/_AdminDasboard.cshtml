@@ -1,0 +1,37 @@
+﻿
+<ul data-submenu-title="Pre Admission">
+    <li><a href="/Courses"><i class="icon-material-outline-question-answer"></i> Course Creation</a></li>
+    <li><a href="/TrainingContentsMasters"><i class="icon-material-outline-star-border"></i> Training Contents</a></li>
+    <li><a href="/Questionnaires"><i class="icon-material-outline-rate-review"></i> Questionnaire Creation</a></li>
+    <li><a asp-controller="TestScenario" asp-action="TestScenario"><i class="icon-material-outline-computer"></i>Test Scenario</a></li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Disclaimer" asp-action="Index"><i class="icon-material-outline-rate-review"></i> Disclaimer</a>
+    </li>
+
+</ul>
+<ul data-submenu-title="Post Admission">
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="CollegeProfile" asp-action="Index"><i class="icon-material-outline-rate-review"></i> College Approval</a>
+    </li>
+    <li><a href="/MonthlyTest"><i class="icon-material-outline-rate-review"></i> PA Monthly Test Creation</a></li>
+    <li><a href="/PATrainingContentMaster"><i class="icon-material-outline-star-border"></i>PA Training Contents</a></li>
+    <li><a href="/PAQuestionnaires"><i class="icon-material-outline-rate-review"></i> PA Questionnaire Creation</a></li>
+    <li><a asp-controller="PATestScenarios" asp-action="PATestScenario"><i class="icon-material-outline-computer"></i>PA Test Scenario</a></li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="PADisclaimer" asp-action="Index"><i class="icon-material-outline-rate-review"></i> PA Disclaimer</a>
+    </li>
+
+</ul>
+
+<ul data-submenu-title="Reports">
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="CollegeProfile" asp-action="RegisteredColleges"><i class="icon-material-outline-rate-review"></i>Registered Colleges</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="RegisteredCandidateList" asp-action="RegisteredCandidateList"><i class="icon-material-outline-rate-review"></i>Registered Candidates</a>
+
+    </li>
+</ul>
+
+<ul data-submenu-title="Account">
+    @*<li><a href="/userprofile"><i class="icon-material-outline-settings"></i> Settings</a></li>*@
+    <li><a href="/Identity/Account/Logout"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+</ul>

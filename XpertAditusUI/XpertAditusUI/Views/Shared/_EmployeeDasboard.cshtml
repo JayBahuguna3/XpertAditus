@@ -1,0 +1,19 @@
+﻿
+<ul data-submenu-title="Job Section">
+    @*<li><a href="/userprofile"><i class="icon-material-outline-question-answer"></i>Update User Profile </a></li>*@
+    <li><a class="nav-link text-dark" asp-area="" asp-controller="CandidateDashBoard" asp-action="CandidateDashBoard"><i class="icon-material-outline-question-answer"></i>Search Candidates & Send Notification</a></li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="JobMasters" asp-action="Create"><i class="icon-material-outline-rate-review"></i>Job Post</a>
+
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="JobMasters" asp-action="Index"><i class="icon-material-outline-rate-review"></i>Manage Jobs</a>
+
+    </li>
+
+
+</ul>
+<ul data-submenu-title="Account">
+    <li><a asp-controller="UserProfile" asp-action="Profile"><i class="icon-material-outline-settings" ></i> Update Profile</a></li>
+    <li><a href="/Identity/Account/Logout"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+</ul>

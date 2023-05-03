@@ -1,0 +1,251 @@
+﻿@model XpertAditusUI.Models.CollegeProfile
+
+@{
+    ViewData["Title"] = "College Detail";
+}
+@if (Model != null)
+{
+    <!-- Wrapper -->
+    <div id="">
+
+
+        <!-- Header Container / End -->
+        <!-- Titlebar
+        ================================================== -->
+        <div class="single-page-header" style="padding:0px;" data-background-image="images/single-company.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="single-page-header-inner">
+                            <div class="left-side">
+                                <div class="header-image"><img src="@Model.LogoPath" alt=""></div>
+                                <div class="header-details">
+                                    <h3>
+                                        @Model.Name <span>
+                                            @*@if (@Model.City != null)
+                                                {<text>@Model.City.Name</text>}*@
+                                            <text>@ViewBag.District</text>
+                                        </span>
+                                    </h3>
+                                    <ul>
+                                        <li><div class="star-rating" data-rating=@Model.Ratings></div></li>
+                                        <li>
+                                            <img class="flag" src="images/in.svg" alt="">
+                                            @*@if (@Model.State != null)
+                                                {<text>@Model.State.Name</text>}*@
+                                        <text>@ViewBag.State</text>
+                                        </li>
+                                        <li><div class="verified-badge-with-title">Verified</div></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="right-side">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8 content-right-offset">
+                    <div class="single-page-section">
+                        <h3 class="margin-bottom-25">About College</h3>
+                        @Html.Raw(@Model.About)
+                    </div>
+                    <div class="boxed-list margin-bottom-60">
+                        <div class="boxed-list-headline">
+                            <h3><i class="icon-material-outline-thumb-up"></i> Reviews</h3>
+                        </div>
+                        <ul class="boxed-list-ul">
+                            <li>
+                                <div class="boxed-list-item">
+                                    <!-- Content -->
+                                    <div class="item-content">
+                                        <h4>@*Doing things the right way <span>Anonymous Employee</span>*@</h4>
+                                        <div class="item-details margin-top-10">
+                                            <div class="star-rating" data-rating=@Model.Ratings></div>
+                                            @*<div class="detail-item"><i class="icon-material-outline-date-range"></i> August 2019</div>*@
+                                        </div>
+                                        <div class="item-description">
+                                            @Html.Raw(@Model.Reviews)
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4">
+                    <div class="sidebar-container">
+                        <div class="sidebar-widget">
+                            @if (ViewBag.CollegeAppliedStatus == true)
+                            {
+                                <a href="#" class="apply-now-button">Already Applied<i class="icon-material-outline-arrow-right-alt"></i></a>
+                            }
+                            else
+                            {
+                                <a onclick='Navigate("@Model.CollegeProfileId")' href="#" class="apply-now-button">Apply<i class="icon-material-outline-arrow-right-alt"></i></a>
+                            }
+                            @*<h3>Location</h3>
+                                <div id="single-job-map-container">
+                                    <div id="singleListingMap" data-latitude="52.520007" data-longitude="13.404954" data-map-icon="im im-icon-Hamburger"></div>
+                                    <a href="#" id="streetView">Street View</a>
+                                </div>*@
+                        </div>
+                        <div class="sidebar-widget">
+                            @*<h3>Social Profiles</h3>
+                                <div class="freelancer-socials margin-top-25">
+                                    <ul>
+                                        <li><a href="#" title="Dribbble" data-tippy-placement="top"><i class="icon-brand-dribbble"></i></a></li>
+                                        <li><a href="#" title="Twitter" data-tippy-placement="top"><i class="icon-brand-twitter"></i></a></li>
+                                        <li><a href="#" title="Behance" data-tippy-placement="top"><i class="icon-brand-behance"></i></a></li>
+                                        <li><a href="#" title="GitHub" data-tippy-placement="top"><i class="icon-brand-github"></i></a></li>
+
+                                    </ul>
+                                </div>*@
+
+                            <h3 style="padding-top:25px;">Address : </h3>
+                            <div class="freelancer-socials margin-top-25">
+                                @Model.CollegeAddress
+                            </div>
+                            <h3 style="padding-top:25px;">Contact Number : </h3>
+                            <div class="freelancer-socials margin-top-25">
+                                @Model.CollegeContact
+                            </div>
+                            <h3 style="padding-top:25px;">Email ID : </h3>
+                            <div class="freelancer-socials margin-top-25">
+                                @Model.CollegeEmail
+                            </div>
+                            <h3 style="padding-top:25px;">Website :</h3>
+                            <div class="freelancer-socials margin-top-25">
+                                <a href="@Model.CollegeWebsiteLink"> @Model.CollegeWebsiteLink</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Spacer -->
+        <div class="margin-top-15"></div>
+        <!-- Spacer / End-->
+
+    </div>
+
+    @*<partial name="_ThemeScripts" />
+        <partial name="_ThemeStyles" />*@
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery-ui.js" type="text/javascript"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.0/slimselect.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.0/slimselect.min.css" rel="stylesheet"></link>
+
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/collegeProfile/site.css" />
+    <link rel="stylesheet" href="~/css/collegeProfile/style.css">
+    <link rel="stylesheet" href="~/css/colors/blue.css">
+
+
+    <!-- Scripts
+    ================================================== -->
+    <script src="~/js/CollegeProfile/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/CollegeProfile/js/jquery-migrate-3.3.2.min.js"></script>
+    <script src="~/js/CollegeProfile/js/mmenu.min.js"></script>
+    <script src="~/js/CollegeProfile/js/tippy.all.min.js"></script>
+    <script src="~/js/CollegeProfile/js/simplebar.min.js"></script>
+    <script src="~/js/CollegeProfile/js/bootstrap-slider.min.js"></script>
+    <script src="~/js/CollegeProfile/js/bootstrap-select.min.js"></script>
+    <script src="~/js/CollegeProfile/js/snackbar.js"></script>
+    <script src="~/js/CollegeProfile/js/clipboard.min.js"></script>
+    <script src="~/js/CollegeProfile/js/counterup.min.js"></script>
+    <script src="~/js/CollegeProfile/js/magnific-popup.min.js"></script>
+    <script src="~/js/CollegeProfile/js/slick.min.js"></script>
+    <script src="~/js/CollegeProfile/js/custom.js"></script>
+
+    <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
+    <script>
+        // Snackbar for user status switcher
+        $('#snackbar-user-status label').click(function () {
+            Snackbar.show({
+                text: 'Your status has been changed!',
+                pos: 'bottom-center',
+                showAction: false,
+                actionText: "Dismiss",
+                duration: 3000,
+                textColor: '#fff',
+                backgroundColor: '#383838'
+            });
+        });
+        // Snackbar for "place a bid" button
+        $('#snackbar-place-bid').click(function () {
+            Snackbar.show({
+                text: 'Your bid has been placed!',
+            });
+        });
+        // Snackbar for copy to clipboard button
+        $('.copy-url-button').click(function () {
+            Snackbar.show({
+                text: 'Copied to clipboard!',
+            });
+        });
+    </script>
+
+    <!-- Google API & Maps -->
+    <!-- Geting an API Key: https://developers.google.com/maps/documentation/javascript/get-api-key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places"></script>
+    <script src="~/js/CollegeProfile/js/infobox.min.js"></script>
+    <script src="~/js/CollegeProfile/js/markerclusterer.js"></script>
+    <script src="~/js/CollegeProfile/js/maps.js"></script>
+
+
+}
+else
+{
+    <h1 style="padding-top:100px;"> No Profile Found </h1>
+}
+@section Scripts {
+    <script>
+        function Navigate(id) {
+            let collegeProfileID = id;
+            showSpinner();
+            var formData = new FormData();
+            formData.append('CollegeProfile_ID', collegeProfileID);
+            
+            $.ajax({
+                url: "/EligibleCourses/AppliedCollege",
+                type: "POST",
+                dataType: "json",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                },
+                error: function (data) {
+                }
+            });
+            setTimeout(() => { window.location.href = "/EligibleCourses/CollegeDetail/" + id; }, 50);
+
+            // Additional Coding for set time out, not required 
+
+          @*  setTimeout(() => {
+                hideSpinner();
+                window.location.href = "/EligibleCourses/CollegeDetail/" + id;
+            }, 3000);*@
+
+        }
+    </script>
+}

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<XpertAditusUI.Models.JobMaster>
+
+@{
+    // var ite = ViewBag.postjob();
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="dashboard-headline">
+    <h3>Manage Jobs</h3>
+    <p>
+        <a asp-action="Create" class="button ripple-effect big margin-top-30"><i class="icon-feather-plus"></i>Post a Job</a>
+    </p>
+</div>
+
+<div style="overflow-x:scroll;width:100%">
+    <table class="table table-striped" id="jobdatatable" style="line-height:16px; font-size:16px">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JobDesignation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompanyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NoOfOpening)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JobLevel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.UserProfile)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.JobId"><span title="Edit"><i class="fa fa-edit" style="font-size:22px;color: darkcyan;"></i></span></a>
+                        <a asp-action="Details" asp-route-id="@item.JobId"><span title="Details"><i class="fa fa-info-circle" style="font-size:22px; color: cornflowerblue; margin: 0 5px;"></i></span></a>
+                        <br />
+                        <a asp-action="Delete" asp-route-id="@item.JobId"><span title="Delete"><i class="fa fa-trash" style="font-size:22px; color: red;"></i></span></a>
+                        <a asp-action="AppliedCandidateList" asp-route-id="@item.JobId"><span title="AppliedCandidateList"><i class="fa fa-user" style="font-size:22px; margin: 0 9px;"></i></span></a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JobDesignation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.NoOfOpening)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JobLevel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City.Name)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.UserProfile.Email)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@section scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#jobdatatable').DataTable().scrollTableBody();
+        });
+
+    </script>
+}
+

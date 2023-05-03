@@ -1,0 +1,126 @@
+﻿@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@model XpertAditusUI.Controllers.CandidateResultController
+@{
+    ViewData["Title"] = "Candidate Result";
+    List<CandidateResult> candidateResultList = ViewBag.CandidateResultList;
+    //ViewBag.userTestedCousreList;
+}
+
+@if (ViewBag.UserCourse != null@*&& ViewBag.UserCourse.Count > 0*@)
+{
+if (ViewBag.CandidateResultList != null)
+{
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9 column">
+            <div class="row">
+                <div class="col-lg-12" style="margin-bottom: -8%;">
+                    <div style="padding-top:10px;font-weight: bold;">
+                        <p style="padding-left:8px; font-size:30px;">Result Details </p>
+                    </div>
+                    @*<p style="padding-left:8px;">Please select Course to see your score</p>
+                        @Html.DropDownListFor(e => e.selectedCourseId,
+                              new SelectList(ViewBag.UserCourseDropdown, "Value", "Text"), "Select Course")*@
+                    <center>
+                        @*<div id="downloadCert" class="col-4" style="padding-left: 0%;display:none;">
+                                <button class="btn btn-primary" style="width:178px" id="download">Download Certificate</button>
+                            </div>*@
+                        <div id="barchart">
+                        </div>
+                    </center>
+                    <div class="row">
+                        @foreach (CandidateResult c in candidateResultList)
+                        {
+                            if (c.IsCompleted.Value == true)
+                            {
+                                <div class="col-lg-4">
+                                    @*<label> Test Attempt : @c.TestAttempt </label>*@
+                                    <label> Score : @c.Score </label>
+                                    <div id="barchart_@c.CandidateResultId" style="height: 250px; width: 100%;">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div>
+                        <p style="padding-left:8px;"></p>
+                    </div>
+                    <div class="flex-nowrap">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+else
+{
+@if (ViewBag.noActiveTest != null)
+{
+    <div>
+        <img src="/images/ScoreCertificate.jpeg" width="100%" />
+    </div>
+}
+else
+{
+    <div>
+        <img src="/images/ScoreCertificate.jpeg" width="100%" />
+    </div>
+}
+
+}
+@section Scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script>
+           // window.ScoreData = null;
+        $(document).ready(function () {
+            @foreach (CandidateResult c in candidateResultList)
+            {
+                if (c.IsCompleted.Value == true)
+                {
+                    decimal s = 0;
+                    decimal ins = 0;
+                    if (c.Score != null)
+                    {
+                        s = c.Score.Value;
+                        ins = (100 - c.Score.Value);
+                    }
+
+                <text>
+            var options = {
+                title: {
+                text: "Attempt" + @c.TestAttempt
+                },
+                data: [{
+                type: "pie",
+                   type: "pie",
+		showInLegend: true,
+		toolTipContent: "<b>{name}</b>: {y} (#percent%)",
+		indexLabel: "{name}",
+		legendText: "{name} (#percent%)",
+		indexLabelPlacement: "inside",
+                    dataPoints: [
+                        { name: "Correct Answers", y: @s },
+                        { name: "Incorrect Answers", y: @ins },
+                    ]
+                }]
+            };
+            $("#barchart_@c.CandidateResultId").CanvasJSChart(options);
+            </text>
+                    }
+                }
+
+            });
+    </script>
+}
+}
+else
+{
+<div>
+
+    <img src="/images/ScoreCertificate.jpeg" width="100%" />
+</div>
+}

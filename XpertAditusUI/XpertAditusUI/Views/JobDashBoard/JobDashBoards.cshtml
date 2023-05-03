@@ -1,0 +1,191 @@
+﻿@using XpertAditusUI.Models;
+@model JobMaster
+@{
+    ViewData["Title"] = "Job DashBoard";
+    var jobInfo = ViewBag.JobDashBoardsInfo;
+    var appliedJobInfo = ViewBag.AppliedJobsInfo;
+    int days = 0;
+}
+
+@if (ViewBag.ActiveCandidateResult != null)
+{
+    <div class="container" id="divscroll">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="sidebar-container">
+
+                    <!-- Location -->
+                    <div class="sidebar-widget">
+                        <h3>Location</h3>
+                        <div class="input-with-icon">
+                            <div id="autocomplete-container">
+                                <input id="findCity" type="text" placeholder="Location">
+                            </div>
+                            <i class="icon-material-outline-location-on"></i>
+                        </div>
+                    </div>
+
+
+                    <!-- Keywords -->
+                    <div class="sidebar-widget">
+                        <h3>Keywords</h3>
+                        <div class="keywords-container">
+                            <div class="keyword-input-container">
+                                <input id="txtkeyword" type="text" class="keyword-input" placeholder="e.g. job title" />
+                                <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
+                            </div>
+                            <div class="keywords-list"><!-- keywords go here --></div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="sidebar-widget">
+                        <h3>Category</h3>
+                        <select id="Category" class="with-border form-control" data-selected-text-format="count" data-size="7" title="All Categories" onchange="filterData()">
+                            <option value="" selected>Select Category</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value=" HumanResources(HR)"> HumanResources(HR) </option>
+                            <option value="Accounting">Accounting</option>
+                        </select>
+                    </div>
+
+                    <!-- Salary Range-->
+                    <div class="sidebar-widget">
+                        <h3></h3>
+
+                        <div class="switches-list">
+                            <div class="switch-container">
+                                <label class="switch"><input id="chk1" type="checkbox" onclick="filterData()"><span class="switch-button"></span>₹ 0 To 10000</label>
+                            </div>
+
+                            <div class="switch-container">
+                                <label class="switch"><input id="chk2" type="checkbox" onclick="filterData()"><span class="switch-button"></span>₹ 10000 To 30000</label>
+                            </div>
+
+                            <div class="switch-container">
+                                <label class="switch"><input id="chk3" type="checkbox" onclick="filterData()"><span class="switch-button"></span> ₹ 30000 To 50000</label>
+                            </div>
+
+                            <div class="switch-container">
+                                <label class="switch"><input id="chk4" type="checkbox" onclick="filterData()"><span class="switch-button"></span>₹ 50000 To 100000</label>
+                            </div>
+
+                            <div class="switch-container">
+                                <label class="switch"><input id="chk5" type="checkbox" onclick="filterData()"><span class="switch-button"></span>₹ 100000 Above</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Tags -->
+                    @*<div class="sidebar-widget">
+                        <h3>Tags</h3>
+                        <div class="clearfix"></div>
+                    </div>*@
+
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8 content-left-offset">
+
+                <h3 class="page-title">Search Results</h3>
+
+                <div class="notify-box margin-top-15">
+                    @*<div class="switch-container">
+                            <label class="switch"><input type="checkbox"><span class="switch-button"></span><span class="switch-text">Turn on email alerts for this search</span></label>
+                        </div>*@
+
+                    <div style="" class="sort-by">
+                        <span style="white-space: nowrap;margin-right:15px;">Sort by:</span>
+                        <select id="Sortby"class="with-border form-control" onchange="filterData()">
+                            <option value="0">Random</option>
+                            <option value="1">Newest</option>
+                            <option value="2">Oldest</option>
+                            @*<option value="3">Random</option>*@
+                        </select>
+                    </div>
+                </div>
+
+                <div class="listings-container margin-top-35">
+                    <div id="divJobList">
+
+                        @foreach (var item in jobInfo)
+                        {
+                            <!-- Job Listing -->
+                            <a asp-controller="JobDashBoard" asp-action="JobInfo" asp-route-jobId="@item.JobId" class="job-listing">
+
+                                <!-- Job Listing Details -->
+                                <div class="job-listing-details">
+                                    <!-- Logo -->
+                                    <div class="job-listing-company-logo">
+                                        @*<img src="images/company-logo-01.png" alt="">*@
+                                    </div>
+
+                                    <!-- Details -->
+                                    <div class="job-listing-description">
+                                        <h4 class="job-listing-company">@item.CompanyName <span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span></h4>
+                                        <h3 class="job-listing-title">@item.JobDesignation</h3>
+                                        <p class="job-listing-text">@item.Description</p>
+                                    </div>
+
+
+                                    @foreach (var appliedJobs in appliedJobInfo)
+                                    {
+                                        @if (item.JobId == appliedJobs.JobId)
+                                        {
+                                            <div class="verified-badge-with-title">Applied</div>
+                                        }
+                                        else
+                                        {
+                                            <!-- Bookmark -->
+                                            @*<span class="bookmark-icon"></span>*@
+                                        }
+                                    }
+                                </div>
+                                <div class="job-listing-footer">
+                                    <ul>
+                                        <li>
+                                            <i class="icon-material-outline-location-on"></i>
+                                            @item.CityName
+                                        </li>
+                                        <li>
+                                            <i class="icon-material-outline-business-center"></i>
+                                            @item.WorkShift
+                                        </li>
+                                        <li>
+                                            <i class="icon-material-outline-account-balance-wallet"></i>
+                                            @item.Ctc
+                                        </li>
+                                        <li>
+                                            <i class="icon-material-outline-access-time"></i> days ago
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="loadingDiv"></div>
+
+                            </a>
+                        }
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div>
+
+        <img src="/images/NoActiveJob.jpeg" width="100%" />
+
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/JobDashBoard/JobDashBoards.js?v=02072021"></script>
+}

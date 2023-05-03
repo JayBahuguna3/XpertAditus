@@ -1,0 +1,58 @@
+﻿@model XpertAditusUI.Models.Course
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Course</h1>
+<hr />
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Fee" class="control-label"></label>
+        <input asp-for="Fee" class="form-control" />
+        <span asp-validation-for="Fee" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsActive" class="control-label"></label>
+        <label for="true">True</label>
+        <input type="radio" asp-for="IsActive" value="True" />
+        <label for="false">False</label>
+        <input type="radio" asp-for="IsActive" value="False" />
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Test Type</label>
+        <label for="true">Single</label>
+        <input type="radio" asp-for="Type" value="Single" />
+        <label for="false">Multiple</label>
+        <input type="radio" asp-for="Type" value="Multiple" />
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-success" onsubmit="return validateForm()" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    }
+}

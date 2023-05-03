@@ -1,0 +1,19 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using XpertAditusUI.Service
+
+@inject SignInManager<IdentityUser> SignInManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="fun-fact" data-fun-fact-color="#36bd78">
+    <div class="fun-fact-text">
+        @*<span>Total Applied For College</span>*@
+        @*this comment for  required applied students only*@
+        <span>Total Applied Students</span>
+        <h4>@ViewBag.AppliedCountForCollege</h4>
+        @*<h4>1</h4>*@
+    </div>
+    <div class="fun-fact-icon"><i class="icon-material-outline-gavel"></i></div>
+</div>

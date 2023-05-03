@@ -1,0 +1,36 @@
+alter table [dbo].[CollegeProfile]
+add [EnablePPOFlag] [bit] NULL
+
+/****** Object:  Table [dbo].[CompanyProfile]    Script Date: 29-11-2022 8:44:37 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CompanyProfile](
+	[CompanyProfileId] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](100) NULL,
+	[LoginId] [nvarchar](450) NULL,
+	[IsActive] [bit] NULL,
+	[Company_Contact] [bigint] NULL,
+	[Company_Email] [nvarchar](100) NULL,
+	[LogoPath] [nvarchar](500) NULL,
+	[AttachementPath] [nvarchar](500) NULL,
+	[Reviews] [nvarchar](500) NULL,
+	[Ratings] [int] NULL,
+	[CompanyWebsiteLink] [nvarchar](450) NULL,
+	[About] [nvarchar](max) NULL,
+	[Company_Address] [nvarchar](150) NULL,
+	[CityId] [nvarchar](100) NULL,
+	[DistrictId] [nvarchar](100) NULL,
+	[StateId] [nvarchar](100) NULL,
+	[CountryId] [nvarchar](100) NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](450) NULL,
+	[UpdatedBy] [nvarchar](450) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CompanyProfileId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO

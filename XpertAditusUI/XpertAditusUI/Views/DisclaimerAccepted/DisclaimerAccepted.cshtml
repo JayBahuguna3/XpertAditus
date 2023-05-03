@@ -1,0 +1,192 @@
+﻿@using XpertAditusUI.Models
+@model Disclaimer
+
+@{
+    ViewData["Title"] = "DisclaimerAccepted";
+}
+@if (ViewBag.AttempedAll == true)
+{
+    <div>
+        <h3 style="text-align:center; background-color:powderblue; -webkit-text-stroke-width: thin;">
+            You have already completed all attempts, please conatct to the administrator.
+        </h3>
+
+    </div>
+}
+else
+{
+
+@if (ViewBag.IsTrainingComplete != null)
+{
+    <div>
+        @*<h3 style="text-align:center; background-color:powderblue; -webkit-text-stroke-width: thin;">
+                Dear Candidate, Please complete training first.
+            </h3>*@
+        <img src="/images/trainingComplete.jpeg" width="100%" />
+
+    </div>
+}
+else if (ViewBag.NoDisclaimer == true)
+{
+    <div>
+        <h3 style="text-align:center; background-color:powderblue; -webkit-text-stroke-width: thin;">
+            No Disclaimer found, Please contant admin.
+        </h3>
+
+    </div>
+}
+else if (Model == null)
+{
+    <div>
+        <img src="/images/examclear.jpeg" width="100%" />
+    </div>
+}
+else if (ViewBag.Course != null)
+{
+    <div class="dashboard-headline">
+        <h3>Test Disclaimer/Instruction</h3>
+    </div>
+    <!-- Row -->
+    <div class="row">
+        <!-- Dashboard Box -->
+        <div class="col-xl-12">
+            <div class="dashboard-box margin-top-0">
+
+                <!-- Headline -->
+                <div class="headline">
+                    <h3><i class="icon-material-outline-assignment"></i>Available Test</h3>
+                </div>
+
+                <div class="content">
+                    <ul class="dashboard-box-list">
+
+                        <li>
+                            <div class="job-listing width-adjustment">
+
+                                <!-- Job Listing Details -->
+                                <div class="job-listing-details">
+
+                                    <!-- Details -->
+                                    <div class="job-listing-description">
+                                        <h3 class="job-listing-title"><a href="#">Course : @ViewBag.Course.Name</a> </h3>
+
+                                        <!-- Job Listing Footer -->
+                                        <div class="job-listing-footer">
+                                            <ul>
+                                                <li>Course Description : @ViewBag.Course.Description</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Task Details -->
+                            <ul class="dashboard-task-info">
+                                <li><strong>@ViewData["Attempt"].ToString()</strong><span>Attempt</span></li>
+                                <li>
+                                    <strong>
+                                        @ViewBag.Course.TestDuration hour
+                                    </strong><span>TestDuration</span>
+                                </li>
+                                <li><strong>@ViewData["PassingCriteria"].ToString()%</strong><span>Passing Marks</span></li>
+                            </ul>
+
+                        </li>
+                        @if (Model != null)
+                        {
+
+                            <li>
+                                <div class="job-listing">
+
+                                    <!-- Job Listing Details -->
+                                    <div class="job-listing-details">
+
+                                        <!-- Details -->
+                                        <div class="job-listing-description">
+                                            <h3 class="job-listing-title">Disclaimer</h3>
+                                            <input type="hidden" value="@Model.DisclaimerId" id="" />
+                                            <!-- Job Listing Footer -->
+                                            <div class="job-listing-footer">
+                                                @Html.Raw(Model.Instruction)
+
+                                                <div style="margin:10px;">
+                                                    <input id="chkAccepted" type="checkbox">
+                                                    <label for="" style="padding-left:5px; display:inline;"> I Accept Terms & Conditions</label>
+                                                    <br />
+                                                    <button class="button ripple-effect" style="display:block;" onclick="CheckAccepted()">StartNow</button>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        <script>
+        function CheckAccepted() {
+            if ($("#chkAccepted")[0].checked) {
+                SaveDisclaimer();
+            }
+            else {
+                alert("Please read disclaimer and accept it.")
+            }
+        }
+
+        function SaveDisclaimer() {
+            var DisclaimerData = [];
+            var rootPath = window.location.protocol + "//" + window.location.host + "/DisclaimerAccepted/DisclaimerAccepted?disclaimerId=@{ if (Model != null)
+                { @Model.DisclaimerId.ToString();
+                } }";
+            $.ajax({
+                url: rootPath,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: JSON.stringify(DisclaimerData),
+                success: function (result) {
+                        if (result.error) {
+                            alert(result.message)
+                        }
+                        else {
+                            StartTest();
+                        }
+                    }
+                });
+        }
+        function StartTest() {
+            $.ajax({
+                url: window.location.origin + "/Test/StartTest/@ViewBag.Course.CourseId",
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    if (result.error) {
+                        alert(result.message)
+                    }
+                    window.location = window.location.origin + '/Test/Test';
+                },
+
+            });
+        }
+        </script>
+    }
+                }
+
+                else
+                {
+    <div>
+        <h3 style="text-align:center; background-color:powderblue; -webkit-text-stroke-width: thin;">
+            No Active Course,
+            Please go to course section and select course.
+        </h3>
+
+    </div>
+                }
+                }

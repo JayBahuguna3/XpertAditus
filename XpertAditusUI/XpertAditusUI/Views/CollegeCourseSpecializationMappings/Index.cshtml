@@ -1,0 +1,123 @@
+﻿@model IEnumerable<XpertAditusUI.Models.CollegeCourseSpecializationMapping>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1> College Courses</h1>
+<br>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div style="overflow-x:scroll;width:100%">
+    <table class="table" style="text-align:center">
+        <thead>
+            <tr>
+                <th>
+                    College
+                    @*@Html.DisplayNameFor(model => model.CollegeProfile)*@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Course)
+                </th>
+                @*<th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>*@
+                <th>
+                    Course Required
+                    @*@Html.DisplayNameFor(model => model.MinQualification)*@
+                </th>
+                <th>
+                    AnyHigherSecondary
+                    @*@Html.DisplayNameFor(model => model.MinQualification)*@
+                </th>
+                <th>
+                    AnyGraduate
+                    @*@Html.DisplayNameFor(model => model.MinQualification)*@
+                </th>
+                <th>
+                    Student Min. AIMS Score for Qualifying
+                    @*@Html.DisplayNameFor(model => model.MinTestScore)*@
+                </th>
+                <th>
+                    Student Min. Academic Percentage for Qualifying
+                    @*@Html.DisplayNameFor(model => model.MinAcademicPercentage)*@
+                </th>
+                @*<th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </th>
+        <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Specialzation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>*@
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CollegeProfile.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.Name)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Education.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HigherSecondary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Graduate)
+                </td>
+                
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Education.Name)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.MinTestScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MinAcademicPercentage)
+                </td>
+                @*<td>
+             @Html.DisplayFor(modelItem => item.CreatedDate)
+         </td>
+         <td>
+             @Html.DisplayFor(modelItem => item.UpdatedDate)
+         </td>
+         <td>
+             @Html.DisplayFor(modelItem => item.CreatedByNavigation.UserName)
+         </td>
+         <td>
+             @Html.DisplayFor(modelItem => item.Specialzation.SpecializationId)
+        </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.UpdatedByNavigation.UserName)
+             </td>*@
+                <td style="text-align:left">
+                    <a asp-action="Edit" asp-route-id="@item.CollegeCourseSpecializationId"><span title="Edit"><i class="fa fa-edit" style="font-size:30px; color:seagreen"></i></span></a>
+                    <a asp-action="Details" asp-route-id="@item.CollegeCourseSpecializationId"><span title="Details"><i class="fa fa-bars" style="font-size:30px; color:blue"></i></span></a>
+                    <a asp-action="Delete" asp-route-id="@item.CollegeCourseSpecializationId"><span title="Delete"><i class="fa fa-trash-o" style="font-size:30px; color:red"></i></span></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

@@ -1,0 +1,81 @@
+﻿@model XpertAditusUI.DTO.PaymentDTO
+@{
+    ViewBag.Title = "Thanks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .Table {
+        display: block;
+    }
+
+    .Row {
+        display: block;
+    }
+
+    .Cell {
+        display: inline-block;
+    }
+
+    .container {
+        /*background: yellow;*/
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<div class="container">
+    <div class="tasks-list-container compact-list margin-top-35">
+        <div class="Title" style="text-align: center;width:100%">
+            <p>Thanks, payment notification sent on your mobile/email.</p>
+        </div>
+        <div class="Table">
+
+            <div class="Row">
+                <div class="Cell">
+                    <p><b>Candidate Name : </b></p>
+                </div>
+                <div class="Cell">
+                    <p>@Html.DisplayFor(item => item.prefill_name)</p>
+                </div>
+            </div>
+            <div class="Row">
+                <div class="Cell">
+                    <p><b>Candidate Id : </b></p>
+                </div>
+                <div class="Cell">
+                    <p>@Html.DisplayFor(item => item.candidateId)</p>
+                </div>
+            </div>
+            <div class="Row">
+                <div class="Cell">
+                    <p><b>Candidate Fee : </b></p>
+                </div>
+                <div class="Cell">
+                    <p>@Html.DisplayFor(item => item.amount)</p>
+                </div>
+            </div>
+            <div class="Row">
+                <div class="Cell">
+                    <p><b>Reference No. : </b></p>
+                </div>
+                <div class="Cell">
+                    <p>@Html.DisplayFor(item => item.responseId)</p>
+                </div>
+            </div>
+            <div class="Row" style="text-align: center;">
+                <div class="Cell">
+
+                    <button style="float:none;">
+                        <a href="../Thanks/DownloadPymntRcLetter?pid=@Html.DisplayFor(item => item.responseId)">Download</a>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<XpertAditusUI.Models.DeleteInterviewModel>
+@{
+    ViewData["Title"] = "Delete Interview";
+}
+@if (ViewBag.ActiveUserCourse != null)
+{
+
+    @if (ViewBag.IsInterviewAvailable == true)
+    {
+        <div class="tasks-list-container margin-top-35">
+            @foreach (DeleteInterviewModel deleteInterviewModel in Model)
+            {
+                <div href="#" class="task-listing">
+                    <div class="task-listing-details">
+                        <div class="task-listing-description">
+                            <h3 class="task-listing-title" style="background-color: #f2f2f2">@deleteInterviewModel.QuestionText</h3>
+                            <label typeof="hidden" class="candidate_delete_questionId">@deleteInterviewModel.QuestionnaireId</label>
+                            <br />
+                            <video style="width: 250px;" controls>
+                                <source src=@deleteInterviewModel.VideoAbsolutePath type="video/mp4">
+                                Your browser does not support HTML video.
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="task-listing-bid">
+                        <div class="task-listing-bid-inner">
+                            <button id="delete_video" class="btn btn-primary" onclick='deleteVideo("@deleteInterviewModel.QuestionnaireId")'>Delete Video</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <h1>No Interview To Delete</h1>
+    }
+
+
+    @section Scripts {
+        <script src="~/js/InterviewVeddioRecord/InterviewVedio.js"></script>
+        <script>
+            for (var i = 0; i < document.getElementsByClassName('candidate_delete_questionId').length; i++) {
+                document.getElementsByClassName('candidate_delete_questionId')[i].style.display = "none";
+            }
+        </script>
+        <script>
+            function deleteVideo(id) {
+                let questionID = id;
+                var formData = new FormData();
+                formData.append('Question_Id', questionID);
+                $.ajax({
+                    url: "/Interview/Delete",
+                    type: "POST",
+                    dataType: "json",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        window.location.reload();
+                    }
+                });
+            }
+        </script>
+    }
+
+}
+else
+{
+    <div>
+        @*<h3 style="text-align:center; background-color:powderblue; -webkit-text-stroke-width: thin;">
+                No Active Course,
+                Please go to course section and select course.
+            </h3>*@
+        <img src="/images/newinterview.jpeg" width="100%" />
+    </div>
+}
+
+
+
+
