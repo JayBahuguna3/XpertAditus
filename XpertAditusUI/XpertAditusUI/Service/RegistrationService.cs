@@ -45,11 +45,12 @@ namespace XpertAditusUI.Service
         public string VerifyOtp(string userName, long mobileNo, string email, int mobileOtp /*int emailOtp*/)
         {
 
-            var otpInfo = _XpertAditusDbContext.OtpMaster.Where(a => a.Username == userName).Take(2).OrderByDescending(a => a.CreatedDate).ToList();
-            int mobileResultOtp = otpInfo.Where(r => r.MobileNo == mobileNo && r.Otp == mobileOtp).Count();
+            var otpInfo = _XpertAditusDbContext.OtpMaster.Where(a => a.Username == userName 
+                                && a.MobileNo == mobileNo && a.Otp == mobileOtp).ToList();
+            //int mobileResultOtp = otpInfo.Where(r => r.MobileNo == mobileNo && r.Otp == mobileOtp).Count();
             // int emailResultOtp = otpInfo.Where(r => r.EmailId == email && r.Otp == emailOtp).Count();
             string result = "";
-            if (mobileResultOtp == 1 /*&& emailResultOtp == 1*/)
+            if (otpInfo.Count >= 1)
             {
                 for (int i = 0; i < otpInfo.Count; i++)
                 {
@@ -70,7 +71,7 @@ namespace XpertAditusUI.Service
             }
             else
             {
-                if (mobileResultOtp == 0)
+                if (otpInfo.Count == 0)
                 {
                     result = "Mobile Otp is Wrong." + "<br>";
                 }
